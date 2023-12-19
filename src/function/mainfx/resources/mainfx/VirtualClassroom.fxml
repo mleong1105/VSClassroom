@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="function.mainfx.VirtualSpaceController">
+    <children>
+        <ImageView fx:id="backgroundImageView" fitWidth="800" fitHeight="600"></ImageView>
+        <Pane fx:id="objPane" />
+    </children>
+</Pane>
