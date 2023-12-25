@@ -1,12 +1,15 @@
 package function.mainfx.static_obj;
 
-public class DiscoBall {
+import function.mainfx.ClassObj;
+
+public class DiscoBall extends ClassObj{
 
     int height;
     int width;
     String color;
 
     public DiscoBall(int height, int width, String color){
+        super("/function/mainfx/resources/image/discoball.png", width, height, 220, 90);
         this.height = height;
         this.width = width;
         this.color = color;

@@ -8,7 +8,6 @@ public class Projector extends ClassObj {
     LaptopPlayer laptopPlayer;
     
 
-     
     public Projector(String description, LaptopPlayer laptopPlayer){
         super("/function/mainfx/resources/image/projector.png", 100, 100, 350, 5);
         this.description = description;
@@ -33,7 +32,6 @@ public class Projector extends ClassObj {
         System.out.println(description + " in tv mode (4x3 aspect ratio)");
     }
 
-    @Override
     public String toString() {
         return description;
     }

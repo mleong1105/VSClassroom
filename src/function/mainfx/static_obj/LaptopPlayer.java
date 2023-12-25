@@ -1,14 +1,16 @@
 package function.mainfx.static_obj;
 
+import function.mainfx.ClassObj;
 import function.mainfx.static_obj.Speaker;
 
-public class LaptopPlayer {
+public class LaptopPlayer extends ClassObj{
 
     String description;
     Speaker speaker;
     String movieUrl;
 
     public LaptopPlayer(String description, Speaker speaker) {
+        super("/function/mainfx/resources/image/laptop_player.png", 20, 20, 220, 90);
         this.description = description;
         this.speaker = speaker;
     }
@@ -27,7 +29,7 @@ public class LaptopPlayer {
     }
 
     public void pause() {
-        System.out.println(description + " paused \"" + movie + "\"");
+        System.out.println(description + " paused \"" + movieUrl + "\"");
     }
 
     public void play(String movieUrl) {

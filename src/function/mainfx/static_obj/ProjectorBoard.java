@@ -1,9 +1,12 @@
 package function.mainfx.static_obj;
 
-public class ProjectorBoard {
+import function.mainfx.ClassObj;
+
+public class ProjectorBoard extends ClassObj{
     String description;
 
     public ProjectorBoard(String description){
+        super("/function/mainfx/resources/image/projectorboard.png", 100, 100, 350, 5);
         this.description = description;
     }
 

@@ -3,22 +3,27 @@ package function.mainfx;
 import java.util.ArrayList;
 import java.util.List;
 
+import function.mainfx.classroom_mode.DefaultMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
-public abstract class Classroom {
-    
+public class Classroom {
+
     private ImageView backgroundImageView;
-    private Pane objPane;
-    private List<ClassObj> objList;
+    private ClassroomMode mode;
 
-    public Classroom(String mode) {
+    // beloow two should put under ClassroomMode class
+    // private Pane objPane;
+    // private List<ClassObj> objList;
+
+    public Classroom() {
+        this.mode = new DefaultMode();
         initializeBackground();
-        initializeObjectPane();
-        objList = new ArrayList<>();
+        // initializeObjectPane();
+        // objList = new ArrayList<>();
 
-        initializeModeObjects(mode);
+        // initializeModeObjects(mode);
     }
 
     private void initializeBackground() {
@@ -26,21 +31,28 @@ public abstract class Classroom {
         backgroundImageView = new ImageView(backgroundImage);
     }
 
-    private void initializeObjectPane() {
-        objPane = new Pane();
+    public void setMode(ClassroomMode mode) {
+        this.mode = mode;
     }
 
-    protected abstract void initializeModeObjects(String mode);
-
-    public void addObjectinList(ClassObj obj) {
-        objPane.getChildren().add(obj.getObjectImageView());
-        objList.add(obj);
+    public ClassroomMode getMode() {
+        return mode;
     }
 
-    public void removeObjectinList(ClassObj obj) {
-        objPane.getChildren().remove(obj.getObjectImageView());
-        objList.remove(obj);
-    }
+    // private void initializeObjectPane() {
+    //     objPane = new Pane();
+    // }
+
+    //  protected abstract void initializeModeObjects(String mode);
+    // public void addObjectinList(ClassObj obj) {
+    //     objPane.getChildren().add(obj.getObjectImageView());
+    //     objList.add(obj);
+    // }
+
+    // public void removeObjectinList(ClassObj obj) {
+    //     objPane.getChildren().remove(obj.getObjectImageView());
+    //     objList.remove(obj);
+    // }
 
     public ImageView getBackgroundImageView() {
         return backgroundImageView;
@@ -52,11 +64,11 @@ public abstract class Classroom {
         return backgroundDarkImageView;
     }
 
-    public Pane getObjPane() {
-        return objPane;
-    }
+    // public Pane getObjPane() {
+    //     return objPane;
+    // }
 
-    public List<ClassObj> getObjList() {
-        return objList;
-    }
+    // public List<ClassObj> getObjList() {
+    //     return objList;
+    // }
 }
