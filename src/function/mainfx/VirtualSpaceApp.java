@@ -20,6 +20,8 @@ public class VirtualSpaceApp extends Application {
 
         primaryStage.setTitle("Virtual Classroom App");
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
+        primaryStage.centerOnScreen();
         primaryStage.show();
     }
 
