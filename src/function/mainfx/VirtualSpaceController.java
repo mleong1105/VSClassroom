@@ -1,9 +1,5 @@
 package function.mainfx;
 
-import function.mainfx.classroom_mode.DefaultMode;
-import function.mainfx.classroom_mode.DiscussionMode;
-import function.mainfx.classroom_mode.LessonMode;
-import function.mainfx.classroom_mode.PartyMode;
 import function.mainfx.static_obj.Balloon;
 import function.mainfx.static_obj.BeverageDispenser;
 import function.mainfx.static_obj.Blackboard;
@@ -35,9 +31,11 @@ public class VirtualSpaceController {
     @FXML
     private ComboBox<String> modeComboBox;
 
+    private MultipurposeClassroom classroom;
+
     @FXML
     public void initialize() {
-        Classroom classroom = new Classroom();
+        classroom = MultipurposeClassroom.getInstanceMultipurposeClassroom();
         Blackboard blackboard = new Blackboard();
         Light light = new Light("Light");
         Speaker speaker = new Speaker("Song 1");
@@ -53,7 +51,8 @@ public class VirtualSpaceController {
         BeverageDispenser bd = new BeverageDispenser(1, 100);
         FoodTable ft = new FoodTable();
 
-        ClassroomFacade cf = new ClassroomFacade(classroom, speaker, noticeboard, learningDesk, lectureDesk, light, smartBoard, balloon, discoBall, bd, ft, discussionTable, whiteboard);
+        ClassroomFacade cf = new ClassroomFacade(classroom, speaker, noticeboard, learningDesk, lectureDesk, light,
+                smartBoard, balloon, discoBall, bd, ft, discussionTable, whiteboard);
         cf.initialClassSetting();
 
         backgroundImageView.setImage(classroom.getBackgroundImageView().getImage());
@@ -66,7 +65,7 @@ public class VirtualSpaceController {
         });
     }
 
-    private void addComponents(ClassroomFacade cf, Classroom classroom) {
+    private void addComponents(ClassroomFacade cf, MultipurposeClassroom classroom) {
         modeComboBox = new ComboBox<>(FXCollections.observableArrayList("Lesson", "Discussion", "Party"));
         modeComboBox.setLayoutX(680);
         modeComboBox.setLayoutY(5);
@@ -77,7 +76,7 @@ public class VirtualSpaceController {
     }
 
     private void handleModeSelection(ClassroomFacade cf) {
-        Classroom classroom = cf.getClassroom();
+        MultipurposeClassroom classroom = cf.getClassroom();
         String selectedMode = modeComboBox.getValue();
         System.out.println("Selected Mode: " + selectedMode);
         cf.setMode(selectedMode);
@@ -85,6 +84,6 @@ public class VirtualSpaceController {
         objPane.getChildren().clear();
         objPane.getChildren().addAll(classroom.getObjPane().getChildren());
         backgroundImageView.setImage(classroom.getBackgroundImageView().getImage());
-        addComponents(cf, classroom); 
+        addComponents(cf, classroom);
     }
 }

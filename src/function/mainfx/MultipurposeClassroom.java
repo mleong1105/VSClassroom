@@ -6,20 +6,37 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
-public class Classroom {
+public class MultipurposeClassroom {
 
     private ImageView backgroundImageView;
     private Pane objPane;
     private List<ClassObj> objList;
 
-    public Classroom() {
+    // Singleton instance
+    private volatile static MultipurposeClassroom uniqueInstanceMultipurposeClassroom;
+
+    // Private constructor
+    private MultipurposeClassroom() {
         initializeBackground();
         initializeObjectPane();
         objList = new ArrayList<>();
     }
 
+    // Public method to get the singleton instance
+    public static MultipurposeClassroom getInstanceMultipurposeClassroom() {
+        if (uniqueInstanceMultipurposeClassroom == null) {
+            synchronized (MultipurposeClassroom.class) {
+                if (uniqueInstanceMultipurposeClassroom == null) {
+                    uniqueInstanceMultipurposeClassroom = new MultipurposeClassroom();
+                }
+            }
+        }
+        return uniqueInstanceMultipurposeClassroom;
+    }
+
     private void initializeBackground() {
-        Image backgroundImage = new Image(getClass().getResourceAsStream("/function/mainfx/resources/image/background.jpg"));
+        Image backgroundImage = new Image(
+                getClass().getResourceAsStream("/function/mainfx/resources/image/background.jpg"));
         backgroundImageView = new ImageView(backgroundImage);
     }
 
@@ -47,7 +64,8 @@ public class Classroom {
     }
 
     public ImageView getBackgroundDarkImageView() {
-        Image backgroundImage = new Image(getClass().getResourceAsStream("/function/mainfx/resources/image/background-dark.png"));
+        Image backgroundImage = new Image(
+                getClass().getResourceAsStream("/function/mainfx/resources/image/background-dark.png"));
         ImageView backgroundDarkImageView = new ImageView(backgroundImage);
         return backgroundDarkImageView;
     }
