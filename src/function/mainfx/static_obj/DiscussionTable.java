@@ -5,6 +5,6 @@ import function.mainfx.ClassObj;
 public class DiscussionTable extends ClassObj{
     
     public DiscussionTable(){
-        super("/function/mainfx/resources/image/discussion_table.png", 100, 100, 350, 5);
+        super("/function/mainfx/resources/image/discussion_table.png", 300, 300, 150, 340);
     }
 }

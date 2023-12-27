@@ -1,6 +1,7 @@
 package function.mainfx.static_obj;
 
 import function.mainfx.ClassObj;
+import javafx.scene.image.Image;
 
 public class Light extends ClassObj {
     
@@ -12,10 +13,12 @@ public class Light extends ClassObj {
     }
 
     public void on(){
+        changeImage("/function/mainfx/resources/image/lighton.png");
         System.out.println(description + " on");
     }
 
     public void off(){
+        changeImage("/function/mainfx/resources/image/lightoff.png");
         System.out.println(description + " off");
     }
 
@@ -26,6 +29,10 @@ public class Light extends ClassObj {
    
     public String toString(){
         return description;
+    }
+
+     private void changeImage(String imagePath) {
+        getObjectImageView().setImage(new Image(getClass().getResourceAsStream(imagePath)));
     }
 
 

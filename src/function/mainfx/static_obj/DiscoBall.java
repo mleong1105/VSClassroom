@@ -9,7 +9,7 @@ public class DiscoBall extends ClassObj{
     String color;
 
     public DiscoBall(int height, int width, String color){
-        super("/function/mainfx/resources/image/discoball.png", width, height, 220, 90);
+        super("/function/mainfx/resources/image/discoball.png", width, height, 300, 5);
         this.height = height;
         this.width = width;
         this.color = color;
