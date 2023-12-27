@@ -1,9 +1,5 @@
 package function.mainfx;
 
-import function.mainfx.classroom_mode.DefaultMode;
-import function.mainfx.classroom_mode.DiscussionMode;
-import function.mainfx.classroom_mode.LessonMode;
-import function.mainfx.classroom_mode.PartyMode;
 import function.mainfx.static_obj.Balloon;
 import function.mainfx.static_obj.BeverageDispenser;
 import function.mainfx.static_obj.DiscoBall;
@@ -23,7 +19,7 @@ import function.mainfx.static_obj.Whiteboard;
 
 public class ClassroomFacade {
 
-    Classroom classroom;
+    MultipurposeClassroom classroom;
     Speaker speaker;
     Noticeboard noticeboard;
     LearningDesk learningDesk;
@@ -37,7 +33,7 @@ public class ClassroomFacade {
     DiscussionTable discussionTable;
     Whiteboard whiteboard;
 
-    public ClassroomFacade(Classroom classroom, Speaker speaker, Noticeboard noticeboard,
+    public ClassroomFacade(MultipurposeClassroom classroom, Speaker speaker, Noticeboard noticeboard,
             LearningDesk learningDesk, LectureDesk lectureDesk, Light light, SmartBoard smartBoard, Balloon balloon,
             DiscoBall discoBall, BeverageDispenser beverageDispenser, FoodTable foodTable, DiscussionTable discussionTable, Whiteboard whiteboard) {
         this.classroom = classroom;
@@ -90,7 +86,7 @@ public class ClassroomFacade {
         classroom.addObjectinList(light);
     }
 
-    public Classroom getClassroom() {
+    public MultipurposeClassroom getClassroom() {
         return classroom;
     }
 
