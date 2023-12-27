@@ -20,7 +20,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
-public class VirtualSpaceController {
+public class MultipurposeClassroomController {
 
     @FXML
     private ImageView backgroundImageView;
