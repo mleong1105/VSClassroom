@@ -11,12 +11,12 @@ public class Speaker extends ClassObj {
         this.musicName = musicName;
     }
 
-    public void on() {
-        System.out.println("Play " + musicName);
+    public void on(){
+        this.setClassObject("/function/mainfx/resources/image/active_speaker.png", 80, 80, 10, 10);
     }
 
     public void off(){
-        System.out.println("Stop Playing "+ musicName);
+        this.setClassObject("/function/mainfx/resources/image/disactive_speaker.png", 80, 80, 10, 10);
     }
 
     public void setStereoSound(){

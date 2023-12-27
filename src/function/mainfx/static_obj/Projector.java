@@ -7,6 +7,9 @@ public class Projector extends ClassObj {
     String description;
     LaptopPlayer laptopPlayer;
     
+    public Projector() {
+        super("/function/mainfx/resources/image/projector.png", 80, 80, 500, -10);
+    }
 
     public Projector(String description, LaptopPlayer laptopPlayer){
         super("/function/mainfx/resources/image/projector.png", 100, 100, 350, 5);

@@ -12,11 +12,11 @@ public class Light extends ClassObj {
     }
 
     public void on(){
-        System.out.println(description + " on");
+        this.setClassObject("/function/mainfx/resources/image/lighton.png", 100, 100, 350, 5);
     }
 
     public void off(){
-        System.out.println(description + " off");
+        this.setClassObject("/function/mainfx/resources/image/lightoff.png", 100, 100, 350, 5);
     }
 
     public void dim(int level){

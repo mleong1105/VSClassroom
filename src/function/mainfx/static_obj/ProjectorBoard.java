@@ -2,21 +2,17 @@ package function.mainfx.static_obj;
 
 import function.mainfx.ClassObj;
 
-public class ProjectorBoard extends ClassObj{
-    String description;
-
-    public ProjectorBoard(String description){
-        super("/function/mainfx/resources/image/projectorboard.png", 100, 100, 350, 5);
-        this.description = description;
+public class ProjectorBoard extends ClassObj {
+    public ProjectorBoard() {
+        super("/function/mainfx/resources/image/projectorScreen_off.png", 380, 200, 210, 100);
     }
 
-    public void up(){
-        System.out.println(description + "screen is up");
+    public void on(){
+        this.setClassObject("/function/mainfx/resources/image/projectorScreen_off.png",  380, 200, 210, 100);
     }
 
-    public void down(){
-        System.out.println(description + "screen is down");
+    public void off(){
+        // this.setClassObject("/function/mainfx/resources/image/projectorScreen_off.png",  380, 200, 210, 100);
+        this.setClassObject("/function/mainfx/resources/image/blackboard.png", 400, 200, 200, 100);
     }
-
-    
 }

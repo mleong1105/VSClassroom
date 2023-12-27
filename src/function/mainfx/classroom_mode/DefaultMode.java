@@ -13,6 +13,10 @@ import function.mainfx.static_obj.Noticeboard;
 import function.mainfx.static_obj.SmartBoard;
 import function.mainfx.static_obj.Speaker;
 import javafx.scene.layout.Pane;
+import function.mainfx.static_obj.Fan;
+import function.mainfx.static_obj.AirConditioner;
+import function.mainfx.static_obj.Projector;
+import function.mainfx.static_obj.ProjectorBoard;
 
 public final class DefaultMode extends ClassroomMode {
 
@@ -29,6 +33,15 @@ public final class DefaultMode extends ClassroomMode {
         LearningDesk learningDesk = new LearningDesk();
         LectureDesk lectureDesk = new LectureDesk();
         Noticeboard noticeboard = new Noticeboard();
+        ProjectorBoard projectorBoard = new ProjectorBoard();
+        Projector projector = new Projector();
+        AirConditioner airCon = new AirConditioner();
+        Fan fan = new Fan();
+
+        addObjectinList(fan);
+        addObjectinList(airCon);
+        addObjectinList(projector);
+        addObjectinList(projectorBoard);
         addObjectinList(blackboard);
         addObjectinList(light);
         addObjectinList(speaker);
