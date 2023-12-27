@@ -2,6 +2,7 @@ package function.mainfx;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.transform.Rotate;
 
 public abstract class ClassObj {
     private Image objectImage;
@@ -30,8 +31,15 @@ public abstract class ClassObj {
         objectImageView.setLayoutY(layoutY);
     }
 
+    // Method to rotate the image
+    public void rotate(double angle) {
+        ImageView imageView = getObjectImageView();
+        Rotate rotate = new Rotate(angle, imageView.getFitWidth() / 2, imageView.getFitHeight() / 2);
+        imageView.getTransforms().add(rotate);
+    }
+
     public ImageView getObjectImageView() {
         return objectImageView;
     }
-    
+
 }

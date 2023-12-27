@@ -8,7 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 public abstract class Classroom {
-    
+
     private ImageView backgroundImageView;
     private Pane objPane;
     private List<ClassObj> objList;
@@ -22,7 +22,8 @@ public abstract class Classroom {
     }
 
     private void initializeBackground() {
-        Image backgroundImage = new Image(getClass().getResourceAsStream("/function/mainfx/resources/image/background.jpg"));
+        Image backgroundImage = new Image(
+                getClass().getResourceAsStream("/function/mainfx/resources/image/background.jpg"));
         backgroundImageView = new ImageView(backgroundImage);
     }
 
