@@ -5,9 +5,9 @@ import function.mainfx.static_obj.Speaker;
 
 public class LaptopPlayer extends ClassObj{
 
-    String description;
-    Speaker speaker;
-    String movieUrl;
+    private String description;
+    private Speaker speaker;
+    private String movieUrl;
 
     // Singleton instance
     private volatile static LaptopPlayer uniqueInstanceLaptopPlayer;    
