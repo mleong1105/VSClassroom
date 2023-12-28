@@ -9,10 +9,26 @@ public class LaptopPlayer extends ClassObj{
     Speaker speaker;
     String movieUrl;
 
-    public LaptopPlayer(String description, Speaker speaker) {
+    // Singleton instance
+    private volatile static LaptopPlayer uniqueInstanceLaptopPlayer;    
+
+    // Private constructor
+    private LaptopPlayer(String description, Speaker speaker) {
         super("/function/mainfx/resources/image/laptop_player.png", 20, 20, 220, 90);
         this.description = description;
         this.speaker = speaker;
+    }
+
+    // Public method to get the singleton instance
+    public static LaptopPlayer getInstanceLaptopPlayer(String description, Speaker speaker) {
+        if (uniqueInstanceLaptopPlayer == null) {
+            synchronized (LaptopPlayer.class) {
+                if (uniqueInstanceLaptopPlayer == null) {
+                    uniqueInstanceLaptopPlayer = new LaptopPlayer(description, speaker);
+                }
+            }
+        }
+        return uniqueInstanceLaptopPlayer;
     }
 
     public void on() {

@@ -6,13 +6,29 @@ import function.mainfx.ClassObj;
 
 public class BeverageDispenser extends ClassObj {
 
-    int beverageOption;
-    int capacity;
+    private int beverageOption;
+    private int capacity;
 
-    public BeverageDispenser(int beverageOption, int capacity) {
+    // Singleton instance
+    private volatile static BeverageDispenser uniqueInstanceBeverageDispenser;    
+
+    // Private constructor
+    private BeverageDispenser(int beverageOption, int capacity) {
         super(decideImagePath(beverageOption), 70, 80, 400, 350);
         this.beverageOption = beverageOption;
         this.capacity = capacity;
+    }
+
+    // Public method to get the singleton instance
+    public static BeverageDispenser getInstanceBeverageDispenser(int screenHeight, int screenWidth) {
+        if (uniqueInstanceBeverageDispenser == null) {
+            synchronized (BeverageDispenser.class) {
+                if (uniqueInstanceBeverageDispenser == null) {
+                    uniqueInstanceBeverageDispenser = new BeverageDispenser(screenHeight, screenWidth);
+                }
+            }
+        }
+        return uniqueInstanceBeverageDispenser;
     }
 
     public static String decideImagePath(int beverageOption){

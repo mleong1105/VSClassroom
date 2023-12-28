@@ -36,20 +36,20 @@ public class MultipurposeClassroomController {
     @FXML
     public void initialize() {
         classroom = MultipurposeClassroom.getInstanceMultipurposeClassroom();
-        Blackboard blackboard = new Blackboard();
-        Light light = new Light("Light");
-        Speaker speaker = new Speaker("Song 1");
-        LearningDesk learningDesk = new LearningDesk();
-        LectureDesk lectureDesk = new LectureDesk();
-        Noticeboard noticeboard = new Noticeboard();
+        Blackboard blackboard = Blackboard.getInstanceBlackboard();
+        Light light = Light.getInstanceLight("Light");
+        Speaker speaker = Speaker.getInstanceSpeaker("Song 1");
+        LearningDesk learningDesk = LearningDesk.getInstanceLearningDesk();
+        LectureDesk lectureDesk = LectureDesk.getInstanceLectureDesk();
+        Noticeboard noticeboard = Noticeboard.getInstanceNoticeboard();
 
-        DiscussionTable discussionTable = new DiscussionTable();
-        Whiteboard whiteboard = new Whiteboard();
-        SmartBoard smartBoard = new SmartBoard(230, 350);
-        Balloon balloon = new Balloon();
-        DiscoBall discoBall = new DiscoBall(150, 150, "Red");
-        BeverageDispenser bd = new BeverageDispenser(1, 100);
-        FoodTable ft = new FoodTable();
+        DiscussionTable discussionTable = DiscussionTable.getInstanceDiscussionTable();
+        Whiteboard whiteboard = Whiteboard.getInstanceWhiteboard();
+        SmartBoard smartBoard = SmartBoard.getInstanceSmartBoard(230, 350);
+        Balloon balloon = Balloon.getInstanceBalloon();
+        DiscoBall discoBall = DiscoBall.getInstanceDiscoBall(150, 150, "Red");
+        BeverageDispenser bd = BeverageDispenser.getInstanceBeverageDispenser(1, 100);
+        FoodTable ft = FoodTable.getInstanceFoodTable();
 
         ClassroomFacade cf = new ClassroomFacade(classroom, speaker, noticeboard, learningDesk, lectureDesk, light,
                 smartBoard, balloon, discoBall, bd, ft, discussionTable, whiteboard);

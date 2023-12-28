@@ -4,14 +4,29 @@ import function.mainfx.ClassObj;
 
 public class Projector extends ClassObj {
 
-    String description;
-    LaptopPlayer laptopPlayer;
+    private String description;
+    private LaptopPlayer laptopPlayer;
     
+    // Singleton instance
+    private volatile static Projector uniqueInstanceProjector;    
 
-    public Projector(String description, LaptopPlayer laptopPlayer){
+    // Private constructor
+    private Projector(String description, LaptopPlayer laptopPlayer){
         super("/function/mainfx/resources/image/projector.png", 100, 100, 350, 5);
         this.description = description;
         this.laptopPlayer = laptopPlayer;
+    }
+
+    // Public method to get the singleton instance
+    public static Projector getInstanceProjector(String description, LaptopPlayer laptopPlayer) {
+        if (uniqueInstanceProjector == null) {
+            synchronized (Projector.class) {
+                if (uniqueInstanceProjector == null) {
+                    uniqueInstanceProjector = new Projector(description, laptopPlayer);
+                }
+            }
+        }
+        return uniqueInstanceProjector;
     }
 
     public void on(){

@@ -5,15 +5,30 @@ import function.mainfx.static_obj.BeverageDispenser;
 
 public class FoodTable extends ClassObj{
 
-    public FoodTable() {
+    // Singleton instance
+    private volatile static FoodTable uniqueInstanceFoodTable;    
+
+    // Private constructor
+    private FoodTable() {
         super("/function/mainfx/resources/image/foodtable.png", 300, 200, 350, 350);
     }
 
+    // Public method to get the singleton instance
+    public static FoodTable getInstanceFoodTable() {
+        if (uniqueInstanceFoodTable == null) {
+            synchronized (FoodTable.class) {
+                if (uniqueInstanceFoodTable == null) {
+                    uniqueInstanceFoodTable = new FoodTable();
+                }
+            }
+        }
+        return uniqueInstanceFoodTable;
+    }
 
     public void addBeverageDispenser() {
         Random rand = new Random();
         int randNum = rand.nextInt(1, 7);
-        BeverageDispenser beverageDispenser = new BeverageDispenser(randNum,100);
+        BeverageDispenser beverageDispenser = BeverageDispenser.getInstanceBeverageDispenser(randNum,100);
         beverageDispenser.getObjectImageView().setX(350);
         beverageDispenser.getObjectImageView().setY(5);
     }

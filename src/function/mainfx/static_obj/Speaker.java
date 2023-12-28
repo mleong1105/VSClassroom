@@ -4,11 +4,27 @@ import function.mainfx.ClassObj;
 
 public class Speaker extends ClassObj {
 
-    String musicName;
+    private String musicName;
 
-    public Speaker(String musicName) {
+    // Singleton instance
+    private volatile static Speaker uniqueInstanceSpeaker;    
+
+    // Private constructor
+    private Speaker(String musicName) {
         super("/function/mainfx/resources/image/active_speaker.png", 80, 80, 10, 10);
         this.musicName = musicName;
+    }
+
+    // Public method to get the singleton instance
+    public static Speaker getInstanceSpeaker(String musicName) {
+        if (uniqueInstanceSpeaker == null) {
+            synchronized (Speaker.class) {
+                if (uniqueInstanceSpeaker == null) {
+                    uniqueInstanceSpeaker = new Speaker(musicName);
+                }
+            }
+        }
+        return uniqueInstanceSpeaker;
     }
 
     public void on() {
