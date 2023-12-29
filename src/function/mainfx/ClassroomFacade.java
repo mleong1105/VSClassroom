@@ -32,10 +32,12 @@ public class ClassroomFacade {
     FoodTable foodTable;
     DiscussionTable discussionTable;
     Whiteboard whiteboard;
+    Projector projector;
 
     public ClassroomFacade(MultipurposeClassroom classroom, Speaker speaker, Noticeboard noticeboard,
             LearningDesk learningDesk, LectureDesk lectureDesk, Light light, SmartBoard smartBoard, Balloon balloon,
-            DiscoBall discoBall, BeverageDispenser beverageDispenser, FoodTable foodTable, DiscussionTable discussionTable, Whiteboard whiteboard) {
+            DiscoBall discoBall, BeverageDispenser beverageDispenser, FoodTable foodTable,
+            DiscussionTable discussionTable, Whiteboard whiteboard) {
         this.classroom = classroom;
         this.speaker = speaker;
         this.noticeboard = noticeboard;
@@ -52,7 +54,7 @@ public class ClassroomFacade {
     }
 
     public void setMode(String mode) {
-        if(mode==null){
+        if (mode == null) {
             return;
         }
         switch (mode) {
@@ -80,7 +82,7 @@ public class ClassroomFacade {
 
     public void initialClassSetting() {
         classroom.clearObjectinList();
-        classroom.addObjectinList(speaker);
+        // classroom.addObjectinList(speaker);
         classroom.addObjectinList(noticeboard);
         classroom.addObjectinList(lectureDesk);
         classroom.addObjectinList(light);
@@ -136,5 +138,9 @@ public class ClassroomFacade {
 
     public Whiteboard getWhiteboard() {
         return whiteboard;
+    }
+
+    public Projector getProjector() {
+        return projector;
     }
 }

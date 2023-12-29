@@ -1,14 +1,15 @@
 package function.mainfx.static_obj;
 
 import function.mainfx.ClassObj;
+import function.mainfx.MultipurposeClassroom;
 
-public class SmartBoard extends ClassObj{
+public class SmartBoard extends ClassObj implements ProjectorBehaviour {
     private int screenHeight;
     private int screenWidth;
     private boolean touchCapability;
-    
+
     // Singleton instance
-    private volatile static SmartBoard uniqueInstanceSmartBoard;    
+    private volatile static SmartBoard uniqueInstanceSmartBoard;
 
     // Private constructor
     private SmartBoard(int screenHeight, int screenWidth) {
@@ -30,25 +31,32 @@ public class SmartBoard extends ClassObj{
         return uniqueInstanceSmartBoard;
     }
 
-    public void on(){
+    public void on() {
         System.out.println("smartboard on");
     }
 
-    public void off(){
+    public void off() {
         System.out.println("smartboard off");
     }
 
-    public void enableTouch(){
+    public void enableTouch() {
         this.touchCapability = true;
         System.out.println("Enable Touch");
     }
 
-    public void disableTouch(){
+    public void disableTouch() {
         this.touchCapability = false;
         System.out.println("Disable Touch");
     }
 
-    public void displayContent(String content){
+    public void displayContent(String content) {
         System.out.println(content);
+    }
+
+    @Override
+    public void project() {
+        MultipurposeClassroom classroom = MultipurposeClassroom.getInstanceMultipurposeClassroom();
+        classroom.removeObjectinList(NormalProjector.getInstanceNormalProjector(null, null));
+        classroom.addObjectinList(uniqueInstanceSmartBoard);
     }
 }

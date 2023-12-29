@@ -6,10 +6,14 @@ import function.mainfx.static_obj.Blackboard;
 import function.mainfx.static_obj.DiscoBall;
 import function.mainfx.static_obj.DiscussionTable;
 import function.mainfx.static_obj.FoodTable;
+import function.mainfx.static_obj.HighOutputPowerSpeaker;
 import function.mainfx.static_obj.LearningDesk;
 import function.mainfx.static_obj.LectureDesk;
 import function.mainfx.static_obj.Light;
+import function.mainfx.static_obj.LowOutputPowerSpeaker;
+import function.mainfx.static_obj.NormalProjector;
 import function.mainfx.static_obj.Noticeboard;
+import function.mainfx.static_obj.Projector;
 import function.mainfx.static_obj.SmartBoard;
 import function.mainfx.static_obj.Speaker;
 import function.mainfx.static_obj.Whiteboard;
@@ -17,6 +21,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
@@ -31,7 +36,18 @@ public class MultiClassroomController {
     @FXML
     private ComboBox<String> modeComboBox;
 
-    private  MultipurposeClassroom classroom;
+    @FXML
+    private ToggleButton projectorToggleButton;
+
+    @FXML
+    private ToggleButton speakerToggleButton;
+
+    @FXML
+    private ComboBox<String> songCollection;
+
+    private MultipurposeClassroom classroom;
+
+    private String song = "";
 
     @FXML
     public void initialize() {
@@ -51,7 +67,8 @@ public class MultiClassroomController {
         BeverageDispenser bd = BeverageDispenser.getInstanceBeverageDispenser(1, 100);
         FoodTable ft = FoodTable.getInstanceFoodTable();
 
-        ClassroomFacade cf = new ClassroomFacade(classroom, speaker, noticeboard, learningDesk, lectureDesk, light, smartBoard, balloon, discoBall, bd, ft, discussionTable, whiteboard);
+        ClassroomFacade cf = new ClassroomFacade(classroom, speaker, noticeboard, learningDesk, lectureDesk, light,
+                smartBoard, balloon, discoBall, bd, ft, discussionTable, whiteboard);
         cf.initialClassSetting();
 
         backgroundImageView.setImage(classroom.getBackgroundImageView().getImage());
@@ -62,6 +79,7 @@ public class MultiClassroomController {
         modeComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             handleModeSelection(cf);
         });
+
     }
 
     private void addComponents(ClassroomFacade cf, MultipurposeClassroom classroom) {
@@ -71,7 +89,22 @@ public class MultiClassroomController {
         modeComboBox.setPromptText("Select Mode");
         modeComboBox.setOnAction(e -> handleModeSelection(cf));
 
-        objPane.getChildren().addAll(classroom.getObjPane(), modeComboBox);
+        projectorToggleButton = new ToggleButton("Switch Projector");
+        projectorToggleButton.setTranslateX(150);
+        projectorToggleButton.setOnAction(e -> handleProjectorToggle(cf));
+
+        songCollection = new ComboBox<>(FXCollections.observableArrayList("discosong.mp3"));
+        songCollection.setTranslateX(150);
+        songCollection.setTranslateY(60);
+        songCollection.setOnAction(e -> selectSong());
+
+        speakerToggleButton = new ToggleButton("Switch Speaker");
+        speakerToggleButton.setTranslateX(150);
+        speakerToggleButton.setTranslateY(30);
+        speakerToggleButton.setOnAction(e -> handleSpeakerToggle(cf, song.toString()));
+
+        objPane.getChildren().addAll(classroom.getObjPane(), modeComboBox, projectorToggleButton, songCollection,
+                speakerToggleButton);
     }
 
     private void handleModeSelection(ClassroomFacade cf) {
@@ -83,6 +116,37 @@ public class MultiClassroomController {
         objPane.getChildren().clear();
         objPane.getChildren().addAll(classroom.getObjPane().getChildren());
         backgroundImageView.setImage(classroom.getBackgroundImageView().getImage());
-        addComponents(cf, classroom); 
+        addComponents(cf, classroom);
+    }
+
+    private void handleProjectorToggle(ClassroomFacade cf) {
+        // MultipurposeClassroom classroom = cf.getClassroom();
+        Projector projector = Projector.getInstanceProjector();
+
+        // Toggle between SmartBoard and Projector behaviors
+        if (projectorToggleButton.isSelected()) {
+            projector.setProjectorBehaviour(SmartBoard.getInstanceSmartBoard(0, 0));
+            projector.projectingScreen();
+        } else {
+            projector.setProjectorBehaviour(NormalProjector.getInstanceNormalProjector(null, null));
+            projector.projectingScreen();
+        }
+    }
+
+    private void selectSong() {
+        song = "/function/mainfx/resources/song/" + songCollection.getValue();
+    }
+
+    private void handleSpeakerToggle(ClassroomFacade cf, String musicName) {
+        // MultipurposeClassroom classroom = cf.getClassroom();
+        Speaker speaker = Speaker.getInstanceSpeaker(null);
+        System.out.println(song);
+        if (speakerToggleButton.isSelected()) {
+            speaker.setSpeakerBehaviour(HighOutputPowerSpeaker.getInstancHighOutputPowerSpeaker(musicName));
+            speaker.playingSound(musicName);
+        } else {
+            speaker.setSpeakerBehaviour(LowOutputPowerSpeaker.getInstancLowOutputPowerSpeaker(musicName));
+            speaker.playingSound(musicName);
+        }
     }
 }

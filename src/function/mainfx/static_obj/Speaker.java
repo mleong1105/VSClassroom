@@ -5,14 +5,16 @@ import function.mainfx.ClassObj;
 public class Speaker extends ClassObj {
 
     private String musicName;
+    private SpeakerBehaviour speakerBehaviour;
 
     // Singleton instance
-    private volatile static Speaker uniqueInstanceSpeaker;    
+    private volatile static Speaker uniqueInstanceSpeaker;
 
     // Private constructor
     private Speaker(String musicName) {
-        super("/function/mainfx/resources/image/active_speaker.png", 80, 80, 10, 10);
+        super("/function/mainfx/resources/image/disactive_speaker.png", 80, 80, 10, 10);
         this.musicName = musicName;
+        this.speakerBehaviour = LowOutputPowerSpeaker.getInstancLowOutputPowerSpeaker(musicName);
     }
 
     // Public method to get the singleton instance
@@ -27,27 +29,35 @@ public class Speaker extends ClassObj {
         return uniqueInstanceSpeaker;
     }
 
+    public void setSpeakerBehaviour(SpeakerBehaviour speakerBehaviour) {
+        this.speakerBehaviour = speakerBehaviour;
+    }
+
+    public void playingSound(String musicName) {
+        speakerBehaviour.playingSound(musicName);
+    }
+
     public void on() {
         System.out.println("Play " + musicName);
     }
 
-    public void off(){
-        System.out.println("Stop Playing "+ musicName);
+    public void off() {
+        System.out.println("Stop Playing " + musicName);
     }
 
-    public void setStereoSound(){
+    public void setStereoSound() {
         System.out.println("streo sound on");
     }
 
-    public void setMonauralSound(){
+    public void setMonauralSound() {
         System.out.println("Mono sound on");
-    } 
-
-    public void setVolume(int volumeSize){
-        System.out.println("Volume set to "+ volumeSize);
     }
 
-    public String toString(){
+    public void setVolume(int volumeSize) {
+        System.out.println("Volume set to " + volumeSize);
+    }
+
+    public String toString() {
         return musicName;
     }
 }
