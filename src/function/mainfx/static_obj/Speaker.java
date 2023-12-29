@@ -7,7 +7,7 @@ public class Speaker extends ClassObj {
     private String musicName;
 
     // Singleton instance
-    private volatile static Speaker uniqueInstanceSpeaker;    
+    private volatile static Speaker uniqueInstanceSpeaker;
 
     // Private constructor
     private Speaker(String musicName) {
@@ -28,26 +28,27 @@ public class Speaker extends ClassObj {
     }
 
     public void on() {
+        this.setClassObject("/function/mainfx/resources/image/active_speaker.png", 80, 80, 10, 10);
         System.out.println("Play " + musicName);
     }
 
-    public void off(){
-        System.out.println("Stop Playing "+ musicName);
+    public void off() {
+        this.setClassObject("/function/mainfx/resources/image/disactive_speaker.png", 80, 80, 10, 10);
     }
 
-    public void setStereoSound(){
+    public void setStereoSound() {
         System.out.println("streo sound on");
     }
 
-    public void setMonauralSound(){
+    public void setMonauralSound() {
         System.out.println("Mono sound on");
-    } 
-
-    public void setVolume(int volumeSize){
-        System.out.println("Volume set to "+ volumeSize);
     }
 
-    public String toString(){
+    public void setVolume(int volumeSize) {
+        System.out.println("Volume set to " + volumeSize);
+    }
+
+    public String toString() {
         return musicName;
     }
 }

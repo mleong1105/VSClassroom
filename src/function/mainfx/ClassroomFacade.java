@@ -1,21 +1,6 @@
 package function.mainfx;
 
-import function.mainfx.static_obj.Balloon;
-import function.mainfx.static_obj.BeverageDispenser;
-import function.mainfx.static_obj.DiscoBall;
-import function.mainfx.static_obj.DiscussionTable;
-import function.mainfx.static_obj.FoodTable;
-import function.mainfx.static_obj.LaptopPlayer;
-import function.mainfx.static_obj.LearningDesk;
-import function.mainfx.static_obj.LectureDesk;
-import function.mainfx.static_obj.Light;
-import function.mainfx.static_obj.Noticeboard;
-import function.mainfx.static_obj.Projector;
-import function.mainfx.static_obj.ProjectorBoard;
-import function.mainfx.static_obj.SmartBoard;
-import function.mainfx.static_obj.Speaker;
-import function.mainfx.static_obj.TriangleBanner;
-import function.mainfx.static_obj.Whiteboard;
+import function.mainfx.static_obj.*;
 
 public class ClassroomFacade {
 
@@ -32,10 +17,15 @@ public class ClassroomFacade {
     FoodTable foodTable;
     DiscussionTable discussionTable;
     Whiteboard whiteboard;
+    Fan fan;
+    AirConditioner airCon;
+    ProjectorBoard projectorBoard;
 
     public ClassroomFacade(MultipurposeClassroom classroom, Speaker speaker, Noticeboard noticeboard,
             LearningDesk learningDesk, LectureDesk lectureDesk, Light light, SmartBoard smartBoard, Balloon balloon,
-            DiscoBall discoBall, BeverageDispenser beverageDispenser, FoodTable foodTable, DiscussionTable discussionTable, Whiteboard whiteboard) {
+            DiscoBall discoBall, BeverageDispenser beverageDispenser, FoodTable foodTable,
+            DiscussionTable discussionTable, Whiteboard whiteboard,
+            Fan fan, AirConditioner airCon, ProjectorBoard projectorBoard) {
         this.classroom = classroom;
         this.speaker = speaker;
         this.noticeboard = noticeboard;
@@ -49,10 +39,13 @@ public class ClassroomFacade {
         this.foodTable = foodTable;
         this.discussionTable = discussionTable;
         this.whiteboard = whiteboard;
+        this.fan = fan;
+        this.airCon = airCon;
+        this.projectorBoard = projectorBoard;
     }
 
     public void setMode(String mode) {
-        if(mode==null){
+        if (mode == null) {
             return;
         }
         switch (mode) {
@@ -84,6 +77,9 @@ public class ClassroomFacade {
         classroom.addObjectinList(noticeboard);
         classroom.addObjectinList(lectureDesk);
         classroom.addObjectinList(light);
+        classroom.addObjectinList(fan);
+        classroom.addObjectinList(airCon);
+        classroom.addObjectinList(projectorBoard);
     }
 
     public MultipurposeClassroom getClassroom() {
@@ -136,5 +132,17 @@ public class ClassroomFacade {
 
     public Whiteboard getWhiteboard() {
         return whiteboard;
+    }
+
+    public Fan getFan() {
+        return fan;
+    }
+
+    public AirConditioner getAirConditioner() {
+        return airCon;
+    }
+
+    public ProjectorBoard getProjectorBoard() {
+        return projectorBoard;
     }
 }
