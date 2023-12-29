@@ -4,15 +4,31 @@ import function.mainfx.ClassObj;
 
 public class DiscoBall extends ClassObj{
 
-    int height;
-    int width;
-    String color;
+    private int height;
+    private int width;
+    private String color;
 
-    public DiscoBall(int height, int width, String color){
-        super("/function/mainfx/resources/image/discoball.png", width, height, 220, 90);
+    // Singleton instance
+    private volatile static DiscoBall uniqueInstanceDiscoBall;    
+
+    // Private constructor
+    private DiscoBall(int height, int width, String color){
+        super("/function/mainfx/resources/image/discoball.png", width, height, 300, 5);
         this.height = height;
         this.width = width;
         this.color = color;
+    }
+
+    // Public method to get the singleton instance
+    public static DiscoBall getInstanceDiscoBall(int height, int width, String color) {
+        if (uniqueInstanceDiscoBall == null) {
+            synchronized (DiscoBall.class) {
+                if (uniqueInstanceDiscoBall == null) {
+                    uniqueInstanceDiscoBall = new DiscoBall(height, width, color);
+                }
+            }
+        }
+        return uniqueInstanceDiscoBall;
     }
 
     public void on(){

@@ -1,117 +1,148 @@
 package function.mainfx;
 
-import function.mainfx.classroom_mode.DefaultMode;
-import function.mainfx.classroom_mode.DiscussionMode;
-import function.mainfx.classroom_mode.LessonMode;
-import function.mainfx.classroom_mode.PartyMode;
-import function.mainfx.static_obj.Balloon;
-import function.mainfx.static_obj.BeverageDispenser;
-import function.mainfx.static_obj.DiscoBall;
-import function.mainfx.static_obj.FoodTable;
-import function.mainfx.static_obj.LaptopPlayer;
-import function.mainfx.static_obj.LearningDesk;
-import function.mainfx.static_obj.LectureDesk;
-import function.mainfx.static_obj.Light;
-import function.mainfx.static_obj.Noticeboard;
-import function.mainfx.static_obj.Projector;
-import function.mainfx.static_obj.ProjectorBoard;
-import function.mainfx.static_obj.SmartBoard;
-import function.mainfx.static_obj.Speaker;
-import function.mainfx.static_obj.TriangleBanner;
+import function.mainfx.static_obj.*;
 
 public class ClassroomFacade {
 
-    Classroom classroom;
-    // Speaker speaker;
-    // Noticeboard noticeboard;
-    // LearningDesk learningDesk;
-    // LectureDesk lectureDesk;
-    // Light light;
-    // SmartBoard smartBoard;
-    // Balloon balloon;
-    // //DiscoBall discoBall;
-    // BeverageDispenser beverageDispenser;
+    MultipurposeClassroom classroom;
+    Speaker speaker;
+    Noticeboard noticeboard;
+    LearningDesk learningDesk;
+    LectureDesk lectureDesk;
+    Light light;
+    SmartBoard smartBoard;
+    Balloon balloon;
+    DiscoBall discoBall;
+    BeverageDispenser beverageDispenser;
+    FoodTable foodTable;
+    DiscussionTable discussionTable;
+    Whiteboard whiteboard;
+    Fan fan;
+    AirConditioner airCon;
+    ProjectorBoard projectorBoard;
 
-    public ClassroomFacade(Classroom classroom) {
+    public ClassroomFacade(MultipurposeClassroom classroom, Speaker speaker, Noticeboard noticeboard,
+            LearningDesk learningDesk, LectureDesk lectureDesk, Light light, SmartBoard smartBoard, Balloon balloon,
+            DiscoBall discoBall, BeverageDispenser beverageDispenser, FoodTable foodTable,
+            DiscussionTable discussionTable, Whiteboard whiteboard,
+            Fan fan, AirConditioner airCon, ProjectorBoard projectorBoard) {
         this.classroom = classroom;
-        // this.speaker = speaker;
-        // this.noticeboard = noticeboard;
-        // this.learningDesk = learningDesk;
-        // this.lectureDesk = lectureDesk;
-        // this.light = light;
-        // this.smartBoard = smartBoard;
-        // this.balloon = balloon;
-        // // this.discoBall = discoBall;
-        // this.beverageDispenser = beverageDispenser;
+        this.speaker = speaker;
+        this.noticeboard = noticeboard;
+        this.learningDesk = learningDesk;
+        this.lectureDesk = lectureDesk;
+        this.light = light;
+        this.smartBoard = smartBoard;
+        this.balloon = balloon;
+        this.discoBall = discoBall;
+        this.beverageDispenser = beverageDispenser;
+        this.foodTable = foodTable;
+        this.discussionTable = discussionTable;
+        this.whiteboard = whiteboard;
+        this.fan = fan;
+        this.airCon = airCon;
+        this.projectorBoard = projectorBoard;
     }
 
     public void setMode(String mode) {
+        if (mode == null) {
+            return;
+        }
         switch (mode) {
             case "Lesson":
-                classroom.setMode(new LessonMode());
+                initialClassSetting();
+                classroom.addObjectinList(learningDesk);
                 break;
             case "Party":
-                classroom.setMode(new PartyMode());
+                initialClassSetting();
+                classroom.addObjectinList(balloon);
+                classroom.addObjectinList(discoBall);
+                classroom.addObjectinList(beverageDispenser);
+                classroom.addObjectinList(foodTable);
                 break;
             case "Discussion":
-                classroom.setMode(new DiscussionMode());
+                initialClassSetting();
+                classroom.addObjectinList(discussionTable);
+                classroom.addObjectinList(whiteboard);
                 break;
             default:
-                classroom.setMode(new DefaultMode());
+                initialClassSetting();
                 break;
         }
     }
 
     public void initialClassSetting() {
-        // prepare all the object in the classroom
-        // dark background
-        startClass();
+        classroom.clearObjectinList();
+        classroom.addObjectinList(speaker);
+        classroom.addObjectinList(noticeboard);
+        classroom.addObjectinList(lectureDesk);
+        classroom.addObjectinList(light);
+        classroom.addObjectinList(fan);
+        classroom.addObjectinList(airCon);
+        classroom.addObjectinList(projectorBoard);
     }
 
-    public void startClass() {
-        // DefaultMode defaultMode = new DefaultMode();
-        // PartyMode partyMode = new PartyMode();
-
-        // if (classroom.getMode().equals(partyMode)) {
-        //     partyMode.getObjPane().getChildren().add(balloon.getObjectImageView());
-        //     //  partyMode.getObjPane().getChildren().add(discoBall.getObjectImageView());
-        //     partyMode.getObjPane().getChildren().add(beverageDispenser.getObjectImageView());
-        // }
-        // speaker.on();
-        // lectureDesk.addLectureDesk();
-        // light.on();
-        // smartBoard.on();
-        System.out.println("Class Started");
+    public MultipurposeClassroom getClassroom() {
+        return classroom;
     }
 
-    public void changeClassMode(String mode) {
-        if (mode == "Lesson") {
-            // projector.on();
-            // projectorBoard.down();
-            // light.dim(4);
-            // speaker.setStereoSound();
-            // laptopPlayer.play("youtube url");
-        } else if (mode == "Discussion") {
-
-            // speaker.off();
-            // laptopPlayer.off();
-        } else if (mode == "Party") {
-            // discoBall.on();
-            // discoBall.changeColor("Red");
-            // beverageDispenser.randomBeverage();
-            // beverageDispenser.refill();
-            // light.dim(3);
-            // speaker.setVolume(10);
-        }
+    public Speaker getSpeaker() {
+        return speaker;
     }
 
-    public void endClass() {
-        // light.off();
-        // // projector.off();
-        // speaker.off();
-        // discoBall.off();
-        // laptopPlayer.off();
-        // projectorBoard.up();
+    public Noticeboard getNoticeboard() {
+        return noticeboard;
+    }
 
+    public LearningDesk getLearningDesk() {
+        return learningDesk;
+    }
+
+    public LectureDesk getLectureDesk() {
+        return lectureDesk;
+    }
+
+    public Light getLight() {
+        return light;
+    }
+
+    public SmartBoard getSmartBoard() {
+        return smartBoard;
+    }
+
+    public Balloon getBalloon() {
+        return balloon;
+    }
+
+    public DiscoBall getDiscoBall() {
+        return discoBall;
+    }
+
+    public BeverageDispenser getBeverageDispenser() {
+        return beverageDispenser;
+    }
+
+    public FoodTable getFoodTable() {
+        return foodTable;
+    }
+
+    public DiscussionTable getDiscussionTable() {
+        return discussionTable;
+    }
+
+    public Whiteboard getWhiteboard() {
+        return whiteboard;
+    }
+
+    public Fan getFan() {
+        return fan;
+    }
+
+    public AirConditioner getAirConditioner() {
+        return airCon;
+    }
+
+    public ProjectorBoard getProjectorBoard() {
+        return projectorBoard;
     }
 }

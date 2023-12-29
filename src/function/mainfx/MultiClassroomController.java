@@ -1,12 +1,8 @@
 package function.mainfx;
 
-import function.mainfx.classroom_mode.DefaultMode;
-import function.mainfx.classroom_mode.DiscussionMode;
-import function.mainfx.classroom_mode.LessonMode;
-import function.mainfx.classroom_mode.PartyMode;
+import function.mainfx.static_obj.*;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
@@ -14,9 +10,9 @@ import javafx.scene.layout.Pane;
 import function.mainfx.command.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import function.mainfx.static_obj.*;
+import javafx.scene.Scene;
 
-public class VirtualSpaceController {
+public class MultiClassroomController {
 
     @FXML
     private ImageView backgroundImageView;
@@ -24,23 +20,56 @@ public class VirtualSpaceController {
     @FXML
     private Pane objPane;
 
-    private Classroom classroom;
-
     @FXML
     private ComboBox<String> modeComboBox;
 
+    private MultipurposeClassroom classroom;
+    private Blackboard blackboard;
+    private Light light;
+    private Speaker speaker;
+    private LearningDesk learningDesk;
+    private LectureDesk lectureDesk;
+    private Noticeboard noticeboard;
+    private DiscussionTable discussionTable;
+    private Whiteboard whiteboard;
+    private SmartBoard smartBoard;
+    private Balloon balloon;
+    private DiscoBall discoBall;
+    private BeverageDispenser bd;
+    private FoodTable ft;
+    private AirConditioner airCon;
+    private Fan fan;
+    private ProjectorBoard projectorBoard;
     private RemoteControl remoteControl;
 
     @FXML
     public void initialize() {
-        classroom = new Classroom();
+        classroom = MultipurposeClassroom.getInstanceMultipurposeClassroom();
+        blackboard = Blackboard.getInstanceBlackboard();
+        light = Light.getInstanceLight("Light");
+        speaker = Speaker.getInstanceSpeaker("Song 1");
+        learningDesk = LearningDesk.getInstanceLearningDesk();
+        lectureDesk = LectureDesk.getInstanceLectureDesk();
+        noticeboard = Noticeboard.getInstanceNoticeboard();
 
-        ClassroomFacade cf = new ClassroomFacade(classroom); // Default mode on initialization
+        discussionTable = DiscussionTable.getInstanceDiscussionTable();
+        whiteboard = Whiteboard.getInstanceWhiteboard();
+        smartBoard = SmartBoard.getInstanceSmartBoard(230, 350);
+        balloon = Balloon.getInstanceBalloon();
+        discoBall = DiscoBall.getInstanceDiscoBall(150, 150, "Red");
+        bd = BeverageDispenser.getInstanceBeverageDispenser(1, 100);
+        ft = FoodTable.getInstanceFoodTable();
+        fan = Fan.getInstanceFan("Fan");
+        airCon = AirConditioner.getInstanceAirCon("AirCon");
+        projectorBoard = ProjectorBoard.getInstanceProjectorBoard("ProjectorBoard");
+
+        ClassroomFacade cf = new ClassroomFacade(classroom, speaker, noticeboard, learningDesk, lectureDesk, light,
+                smartBoard, balloon, discoBall, bd, ft, discussionTable, whiteboard, fan, airCon, projectorBoard);
         cf.initialClassSetting();
 
         backgroundImageView.setImage(classroom.getBackgroundImageView().getImage());
 
-        addComponents(cf); // Pass the ClassroomFacade argument
+        addComponents(cf, classroom); // Pass the ClassroomFacade argument
         setUpRemoteControl();
         addControl();
 
@@ -50,59 +79,39 @@ public class VirtualSpaceController {
         });
     }
 
-    private void addComponents(ClassroomFacade cf) {
-        Button startClassBtn = new Button("Start Class");
-        startClassBtn.setLayoutX(520);
-        startClassBtn.setLayoutY(300);
-        startClassBtn.setOnAction(e -> startClass());
-
-        Button endClassBtn = new Button("End Class");
-        endClassBtn.setLayoutX(600);
-        endClassBtn.setLayoutY(300);
-        endClassBtn.setOnAction(e -> endClass());
-
+    private void addComponents(ClassroomFacade cf, MultipurposeClassroom classroom) {
         modeComboBox = new ComboBox<>(FXCollections.observableArrayList("Lesson", "Discussion", "Party"));
         modeComboBox.setLayoutX(680);
-        modeComboBox.setLayoutY(300);
+        modeComboBox.setLayoutY(550);
         modeComboBox.setPromptText("Select Mode");
         modeComboBox.setOnAction(e -> handleModeSelection(cf));
 
-        objPane.getChildren().addAll(classroom.getMode().getObjPane(), startClassBtn, endClassBtn, modeComboBox);
-    }
-
-    private void startClass() {
-        System.out.println("Class Started");
-    }
-
-    private void endClass() {
-        backgroundImageView.setImage(classroom.getBackgroundDarkImageView().getImage());
+        objPane.getChildren().addAll(classroom.getObjPane(), modeComboBox);
     }
 
     private void handleModeSelection(ClassroomFacade cf) {
+        MultipurposeClassroom classroom = cf.getClassroom();
         String selectedMode = modeComboBox.getValue();
         System.out.println("Selected Mode: " + selectedMode);
         cf.setMode(selectedMode);
 
-        // Clear existing objects and add objects from the new mode
         objPane.getChildren().clear();
-        objPane.getChildren().addAll(classroom.getMode().getObjPane().getChildren());
+        objPane.getChildren().addAll(classroom.getObjPane().getChildren());
         backgroundImageView.setImage(classroom.getBackgroundImageView().getImage());
-        // Explicitly set the layout coordinates for the buttons
-        addComponents(cf); // Pass the ClassroomFacade argument
-        setUpRemoteControl();
+        addComponents(cf, classroom);
         addControl();
     }
 
     private void addControl() {
         VBox VBoxControlScene = new VBox(10);
-        Scene controlScene = new Scene(VBoxControlScene, 500, 500);
+        Scene controlScene = new Scene(VBoxControlScene, 300, 450);
 
         Stage controlStage = new Stage();
         controlStage.setScene(controlScene);
 
         Button toControlSceneButton = new Button("Control");
-        toControlSceneButton.setLayoutX(450);
-        toControlSceneButton.setLayoutY(300);
+        toControlSceneButton.setLayoutX(610);
+        toControlSceneButton.setLayoutY(550);
         toControlSceneButton.setOnAction(e -> controlStage.show());
 
         // Remote Control Button
@@ -116,8 +125,8 @@ public class VirtualSpaceController {
         Button speakerOffButton = new Button("Speaker Off");
         Button projectorOnButton = new Button("Projector On");
         Button projctorOffButton = new Button("Projector Off");
-        Button partyOnButton = new Button("Party On");
-        Button partyOffButton = new Button("Party Off");
+        Button enterClassButton = new Button("Enter Class");
+        Button leaveClassButton = new Button("Leave Class");
 
         // Set up command for each button
         airConOnButton.setOnAction(e -> remoteControl.onButtonWasPressed(0));
@@ -130,43 +139,18 @@ public class VirtualSpaceController {
         speakerOffButton.setOnAction(e -> remoteControl.offButtonWasPressed(3));
         projectorOnButton.setOnAction(e -> remoteControl.onButtonWasPressed(4));
         projctorOffButton.setOnAction(e -> remoteControl.offButtonWasPressed(4));
-        partyOnButton.setOnAction(e -> remoteControl.onButtonWasPressed(5));
-        partyOffButton.setOnAction(e -> remoteControl.offButtonWasPressed(5));
+        enterClassButton.setOnAction(e -> remoteControl.onButtonWasPressed(5));
+        leaveClassButton.setOnAction(e -> remoteControl.offButtonWasPressed(5));
 
         VBoxControlScene.getChildren().addAll(airConOnButton, airConOffButton, fanOnButton, fanOffButton,
                 lightOnButton, lightOffButton, speakerOnButton, speakerOffButton, projectorOnButton,
-                projctorOffButton, partyOnButton, partyOffButton);
+                projctorOffButton, enterClassButton, leaveClassButton);
 
         objPane.getChildren().addAll(toControlSceneButton);
     }
 
     private void setUpRemoteControl() {
         remoteControl = new RemoteControl();
-        AirConditioner airCon = (AirConditioner) classroom.getMode().getObjList().stream()
-                .filter(obj -> obj instanceof AirConditioner)
-                .findFirst()
-                .orElse(null);
-
-        Fan fan = (Fan) classroom.getMode().getObjList().stream()
-                .filter(obj -> obj instanceof Fan)
-                .findFirst()
-                .orElse(null);
-
-        Light light = (Light) classroom.getMode().getObjList().stream()
-                .filter(obj -> obj instanceof Light)
-                .findFirst()
-                .orElse(null);
-
-        Speaker speaker = (Speaker) classroom.getMode().getObjList().stream()
-                .filter(obj -> obj instanceof Speaker)
-                .findFirst()
-                .orElse(null);
-
-        ProjectorBoard projectorBoard = (ProjectorBoard) classroom.getMode().getObjList().stream()
-                .filter(obj -> obj instanceof ProjectorBoard)
-                .findFirst()
-                .orElse(null);
-
         Command airConOn = new AirConditionerOn(airCon);
         Command airConOff = new AirConditionerOff(airCon);
         Command fanOn = new FanOn(fan);
@@ -178,18 +162,18 @@ public class VirtualSpaceController {
         Command projectorOn = new ProjectorOn(projectorBoard);
         Command projectorOff = new ProjectorOff(projectorBoard);
 
-        Command[] partyOn = { airConOn, fanOn, lightOff, speakerOn, projectorOff };
-        Command[] partyOff = { airConOff, fanOff, lightOff, speakerOff, projectorOff };
+        Command[] enterClass = { airConOn, fanOn, lightOn, speakerOn, projectorOn };
+        Command[] leaveClass = { airConOff, fanOff, lightOff, speakerOff, projectorOff };
 
-        MacroCommand partyOnMacro = new MacroCommand(partyOn);
-        MacroCommand partyOffMacro = new MacroCommand(partyOff);
+        MacroCommand enterClassMacro = new MacroCommand(enterClass);
+        MacroCommand leaveClassMacro = new MacroCommand(leaveClass);
 
         remoteControl.setCommands(0, airConOn, airConOff);
         remoteControl.setCommands(1, fanOn, fanOff);
         remoteControl.setCommands(2, lightOn, lightOff);
         remoteControl.setCommands(3, speakerOn, speakerOff);
         remoteControl.setCommands(4, projectorOn, projectorOff);
-        remoteControl.setCommands(5, partyOnMacro, partyOffMacro);
+        remoteControl.setCommands(5, enterClassMacro, leaveClassMacro);
 
     }
 }
