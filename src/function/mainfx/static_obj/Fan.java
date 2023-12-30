@@ -3,11 +3,14 @@ package function.mainfx.static_obj;
 import function.mainfx.ClassObj;
 
 public class Fan extends ClassObj {
+
     private String description;
+
     // Singleton instance
     private volatile static Fan uniqueInstanceFan;
 
-    public Fan(String description) {
+    // Private constructor
+    private Fan(String description) {
         super("/function/mainfx/resources/image/fan_off.png", 150, 150, 200, -25);
         this.description = description;
     }

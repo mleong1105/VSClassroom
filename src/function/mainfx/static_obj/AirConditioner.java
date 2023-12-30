@@ -3,11 +3,14 @@ package function.mainfx.static_obj;
 import function.mainfx.ClassObj;
 
 public class AirConditioner extends ClassObj {
+
     private String description;
+
     // Singleton instance
     private volatile static AirConditioner uniqueInstanceAirConditioner;
 
-    public AirConditioner(String description) {
+    // Private constructor
+    private AirConditioner(String description) {
         super("/function/mainfx/resources/image/airCon_off.png", 180, 180, 620, -40);
         this.description = description;
     }
