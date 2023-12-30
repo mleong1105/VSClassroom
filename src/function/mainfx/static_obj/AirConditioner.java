@@ -7,7 +7,7 @@ public class AirConditioner extends ClassObj {
     // Singleton instance
     private volatile static AirConditioner uniqueInstanceAirConditioner;
 
-    public AirConditioner(String description, String onImgPath, String offImgPath) {
+    private AirConditioner(String description, String onImgPath, String offImgPath) {
         super(offImgPath, 180, 180, 620, -40, description);
         this.onImgPath = onImgPath;
         this.offImgPath = offImgPath;
