@@ -4,23 +4,25 @@ import function.mainfx.ClassObj;
 
 public class Speaker extends ClassObj {
 
-    private String musicName;
+    private String musicName, activeImgPath, disactiveImgPath;
 
     // Singleton instance
     private volatile static Speaker uniqueInstanceSpeaker;
 
     // Private constructor
-    private Speaker(String musicName) {
-        super("/function/mainfx/resources/image/active_speaker.png", 80, 80, 10, 10);
+    private Speaker(String description, String activeImgPath, String disactiveImgPath, String musicName) {
+        super(activeImgPath, 80, 80, 10, 10, description);
+        this.activeImgPath = activeImgPath;
+        this.disactiveImgPath = disactiveImgPath;
         this.musicName = musicName;
     }
 
     // Public method to get the singleton instance
-    public static Speaker getInstanceSpeaker(String musicName) {
+    public static Speaker getInstanceSpeaker(String description, String activeImgPath, String disactiveImgPath, String musicName) {
         if (uniqueInstanceSpeaker == null) {
             synchronized (Speaker.class) {
                 if (uniqueInstanceSpeaker == null) {
-                    uniqueInstanceSpeaker = new Speaker(musicName);
+                    uniqueInstanceSpeaker = new Speaker(description, activeImgPath, disactiveImgPath, musicName);
                 }
             }
         }
@@ -28,12 +30,13 @@ public class Speaker extends ClassObj {
     }
 
     public void on() {
-        this.setClassObject("/function/mainfx/resources/image/active_speaker.png", 80, 80, 10, 10);
+        this.setClassObject(activeImgPath, 80, 80, 10, 10);
         System.out.println("Play " + musicName);
     }
 
     public void off() {
-        this.setClassObject("/function/mainfx/resources/image/disactive_speaker.png", 80, 80, 10, 10);
+        this.setClassObject(disactiveImgPath, 80, 80, 10, 10);
+        System.out.println("Speaker stop playing");
     }
 
     public void setStereoSound() {

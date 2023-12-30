@@ -2,25 +2,25 @@ package function.mainfx.static_obj;
 
 import function.mainfx.ClassObj;
 
-public class Light extends ClassObj {
-    
-    private String description;
-    
+public class Light extends ClassObj {    
+
+    String onImgPath, offImgPath;
     // Singleton instance
     private volatile static Light uniqueInstanceLight;    
 
     // Private constructor
-    private Light(String description) {
-        super("/function/mainfx/resources/image/lightoff.png", 100, 100, 350, 5);
-        this.description = description;
+    private Light(String description, String onImgPath, String offImgPath ) {
+        super(offImgPath, 100, 100, 350, 5, description);
+        this.onImgPath = onImgPath;
+        this.offImgPath = offImgPath;
     }
 
     // Public method to get the singleton instance
-    public static Light getInstanceLight(String description) {
+    public static Light getInstanceLight(String description, String onImgPath, String offImgPath) {
         if (uniqueInstanceLight == null) {
             synchronized (Light.class) {
                 if (uniqueInstanceLight == null) {
-                    uniqueInstanceLight = new Light(description);
+                    uniqueInstanceLight = new Light(description, onImgPath, offImgPath);
                 }
             }
         }
@@ -28,12 +28,12 @@ public class Light extends ClassObj {
     }
 
     public void on(){
-        this.setClassObject("/function/mainfx/resources/image/lighton.png", 100, 100, 350, 5);
+        this.setClassObject(onImgPath, 100, 100, 350, 5);
         System.out.println(description + " on");
     }
 
     public void off(){
-        this.setClassObject("/function/mainfx/resources/image/lightoff.png", 100, 100, 350, 5);
+        this.setClassObject(offImgPath, 100, 100, 350, 5);
         System.out.println(description + " off");
     }
 

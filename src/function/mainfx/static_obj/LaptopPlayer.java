@@ -5,7 +5,6 @@ import function.mainfx.static_obj.Speaker;
 
 public class LaptopPlayer extends ClassObj{
 
-    private String description;
     private Speaker speaker;
     private String movieUrl;
 
@@ -13,18 +12,18 @@ public class LaptopPlayer extends ClassObj{
     private volatile static LaptopPlayer uniqueInstanceLaptopPlayer;    
 
     // Private constructor
-    private LaptopPlayer(String description, Speaker speaker) {
-        super("/function/mainfx/resources/image/laptop_player.png", 20, 20, 220, 90);
-        this.description = description;
+    private LaptopPlayer(String description, String imgPath, Speaker speaker, String movieUrl) {
+        super(imgPath, 20, 20, 220, 90, description);
         this.speaker = speaker;
+        this.movieUrl = movieUrl;
     }
 
     // Public method to get the singleton instance
-    public static LaptopPlayer getInstanceLaptopPlayer(String description, Speaker speaker) {
+    public static LaptopPlayer getInstanceLaptopPlayer(String description, String imgPath, Speaker speaker, String movieUrl) {
         if (uniqueInstanceLaptopPlayer == null) {
             synchronized (LaptopPlayer.class) {
                 if (uniqueInstanceLaptopPlayer == null) {
-                    uniqueInstanceLaptopPlayer = new LaptopPlayer(description, speaker);
+                    uniqueInstanceLaptopPlayer = new LaptopPlayer(description, imgPath, speaker, movieUrl);
                 }
             }
         }

@@ -8,16 +8,16 @@ public class DiscussionTable extends ClassObj{
     private volatile static DiscussionTable uniqueInstanceDiscussionTable;    
 
     // Private constructor
-    private DiscussionTable() {
-        super("/function/mainfx/resources/image/discussion_table.png", 300, 300, 150, 340);
+    private DiscussionTable(String description, String imgPath) {
+        super(imgPath, 300, 300, 150, 340, description);
     }
 
     // Public method to get the singleton instance
-    public static DiscussionTable getInstanceDiscussionTable() {
+    public static DiscussionTable getInstanceDiscussionTable(String description, String imgPath) {
         if (uniqueInstanceDiscussionTable == null) {
             synchronized (DiscussionTable.class) {
                 if (uniqueInstanceDiscussionTable == null) {
-                    uniqueInstanceDiscussionTable = new DiscussionTable();
+                    uniqueInstanceDiscussionTable = new DiscussionTable(description, imgPath);
                 }
             }
         }

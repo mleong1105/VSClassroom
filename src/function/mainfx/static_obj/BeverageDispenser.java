@@ -8,50 +8,36 @@ public class BeverageDispenser extends ClassObj {
 
     private int beverageOption;
     private int capacity;
+    private String[] imgPathList;
 
     // Singleton instance
     private volatile static BeverageDispenser uniqueInstanceBeverageDispenser;    
 
     // Private constructor
-    private BeverageDispenser(int beverageOption, int capacity) {
-        super(decideImagePath(beverageOption), 70, 80, 400, 350);
+    private BeverageDispenser(String description, String[] imgPathList, int beverageOption, int capacity) {
+        super(imgPathList[0], 70, 80, 400, 350, description);
         this.beverageOption = beverageOption;
+        this.imgPathList = imgPathList;
         this.capacity = capacity;
     }
 
     // Public method to get the singleton instance
-    public static BeverageDispenser getInstanceBeverageDispenser(int screenHeight, int screenWidth) {
+    public static BeverageDispenser getInstanceBeverageDispenser(String description, String[] imgPathList, int beverageOption, int capacity) {
         if (uniqueInstanceBeverageDispenser == null) {
             synchronized (BeverageDispenser.class) {
                 if (uniqueInstanceBeverageDispenser == null) {
-                    uniqueInstanceBeverageDispenser = new BeverageDispenser(screenHeight, screenWidth);
+                    uniqueInstanceBeverageDispenser = new BeverageDispenser(description, imgPathList, beverageOption, capacity);
                 }
             }
         }
         return uniqueInstanceBeverageDispenser;
     }
 
-    public static String decideImagePath(int beverageOption){
-        if(beverageOption==1){
-            return "/function/mainfx/resources/image/water1.png";
-        }
-        else if(beverageOption==2){
-            return "/function/mainfx/resources/image/water2.png";
-        }
-        else if(beverageOption==3){
-            return "/function/mainfx/resources/image/water3.png";
-        }
-        else if(beverageOption==4){
-            return "/function/mainfx/resources/image/water4.png";
-        }
-        else if(beverageOption==5){
-            return "/function/mainfx/resources/image/water5.png";
-        }
-        else if(beverageOption==6){
-            return "/function/mainfx/resources/image/water6.png";
-        }
-        else{
-            return "/function/mainfx/resources/image/water1.png";
+    public String decideImagePath(String[] imgPathList, int beverageOption){
+        if (beverageOption >= 0 && beverageOption < imgPathList.length) {
+            return imgPathList[beverageOption];
+        } else {
+            return imgPathList[0];
         }
     }
 
