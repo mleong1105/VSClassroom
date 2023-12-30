@@ -3,27 +3,23 @@ package function.mainfx.static_obj;
 import function.mainfx.ClassObj;
 
 public class SmartBoard extends ClassObj{
-    private int screenHeight;
-    private int screenWidth;
     private boolean touchCapability;
     
     // Singleton instance
     private volatile static SmartBoard uniqueInstanceSmartBoard;    
 
     // Private constructor
-    private SmartBoard(int screenHeight, int screenWidth) {
-        super("/function/mainfx/resources/image/smartboard.png", screenWidth, screenHeight, 220, 90);
-        this.screenHeight = screenHeight;
-        this.screenWidth = screenWidth;
+    private SmartBoard(String description, String imgPath) {
+        super(imgPath, 230, 350, 220, 90, description);
         this.touchCapability = false;
     }
 
     // Public method to get the singleton instance
-    public static SmartBoard getInstanceSmartBoard(int screenHeight, int screenWidth) {
+    public static SmartBoard getInstanceSmartBoard(String description, String imgPath) {
         if (uniqueInstanceSmartBoard == null) {
             synchronized (SmartBoard.class) {
                 if (uniqueInstanceSmartBoard == null) {
-                    uniqueInstanceSmartBoard = new SmartBoard(screenHeight, screenWidth);
+                    uniqueInstanceSmartBoard = new SmartBoard(description, imgPath);
                 }
             }
         }

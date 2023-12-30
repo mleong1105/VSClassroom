@@ -1,8 +1,34 @@
 package function.mainfx;
 
+import function.mainfx.command.AirConditionerOff;
+import function.mainfx.command.AirConditionerOn;
+import function.mainfx.command.Command;
+import function.mainfx.command.FanOff;
+import function.mainfx.command.FanOn;
+import function.mainfx.command.LightOff;
+import function.mainfx.command.LightOn;
+import function.mainfx.command.MacroCommand;
+import function.mainfx.command.ProjectorOff;
+import function.mainfx.command.ProjectorOn;
+import function.mainfx.command.RemoteControl;
+import function.mainfx.command.SpeakerOff;
+import function.mainfx.command.SpeakerOn;
 import function.mainfx.static_obj.*;
+import javafx.collections.FXCollections;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class ClassroomFacade {
+
+    ImageView backgroundImageView;
+    Pane objPane;
+    ComboBox<String> modeComboBox;
+    RemoteControl remoteControl;
 
     MultipurposeClassroom classroom;
     Speaker speaker;
@@ -21,27 +47,27 @@ public class ClassroomFacade {
     AirConditioner airCon;
     ProjectorBoard projectorBoard;
 
-    public ClassroomFacade(MultipurposeClassroom classroom, Speaker speaker, Noticeboard noticeboard,
-            LearningDesk learningDesk, LectureDesk lectureDesk, Light light, SmartBoard smartBoard, Balloon balloon,
-            DiscoBall discoBall, BeverageDispenser beverageDispenser, FoodTable foodTable,
-            DiscussionTable discussionTable, Whiteboard whiteboard,
-            Fan fan, AirConditioner airCon, ProjectorBoard projectorBoard) {
+    public ClassroomFacade(MultipurposeClassroom classroom, ClassObjFactory objFac, ImageView backgroundImageView, Pane objPane, ComboBox<String> modeComboBox) {
+        this.backgroundImageView = backgroundImageView;
+        this.objPane = objPane;
+        this.modeComboBox = modeComboBox;
         this.classroom = classroom;
-        this.speaker = speaker;
-        this.noticeboard = noticeboard;
-        this.learningDesk = learningDesk;
-        this.lectureDesk = lectureDesk;
-        this.light = light;
-        this.smartBoard = smartBoard;
-        this.balloon = balloon;
-        this.discoBall = discoBall;
-        this.beverageDispenser = beverageDispenser;
-        this.foodTable = foodTable;
-        this.discussionTable = discussionTable;
-        this.whiteboard = whiteboard;
-        this.fan = fan;
-        this.airCon = airCon;
-        this.projectorBoard = projectorBoard;
+
+        this.speaker = objFac.createSpeaker();
+        this.noticeboard = objFac.createNoticeboard();
+        this.learningDesk = objFac.createLearningDesk();
+        this.lectureDesk = objFac.createLectureDesk();
+        this.light = objFac.createLight();
+        this.smartBoard = objFac.createSmartBoard();
+        this.balloon = objFac.createBalloon();
+        this.discoBall = objFac.createDiscoBall();
+        this.beverageDispenser = objFac.createBeverageDispenser();
+        this.foodTable = objFac.createFoodTable();
+        this.discussionTable = objFac.createDiscussionTable();
+        this.whiteboard = objFac.createWhiteboard();
+        this.fan = objFac.createFan();
+        this.airCon = objFac.createAirCon();
+        this.projectorBoard = objFac.createProjectorBoard();
     }
 
     public void setMode(String mode) {
@@ -82,67 +108,103 @@ public class ClassroomFacade {
         classroom.addObjectinList(projectorBoard);
     }
 
-    public MultipurposeClassroom getClassroom() {
-        return classroom;
+    public void setBackgroundImg() {
+        backgroundImageView.setImage(classroom.getBackgroundImageView().getImage());
     }
 
-    public Speaker getSpeaker() {
-        return speaker;
+    public void addModeComponents() {
+        modeComboBox = new ComboBox<>(FXCollections.observableArrayList("Lesson", "Discussion", "Party"));
+        modeComboBox.setLayoutX(680);
+        modeComboBox.setLayoutY(550);
+        modeComboBox.setPromptText("Select Mode");
+        modeComboBox.setOnAction(e -> addModeCBChangeListener());
+
+        objPane.getChildren().addAll(classroom.getObjPane(), modeComboBox);
     }
 
-    public Noticeboard getNoticeboard() {
-        return noticeboard;
+    public void addModeCBChangeListener() {
+        String selectedMode = modeComboBox.getValue();
+        System.out.println("Selected Mode: " + selectedMode);
+        setMode(selectedMode);
+
+        objPane.getChildren().clear();
+        objPane.getChildren().addAll(classroom.getObjPane().getChildren());
+        backgroundImageView.setImage(classroom.getBackgroundImageView().getImage());
+        addModeComponents();
+        addControl();
     }
 
-    public LearningDesk getLearningDesk() {
-        return learningDesk;
+    public void addControl() {
+        VBox VBoxControlScene = new VBox(10);
+        Scene controlScene = new Scene(VBoxControlScene, 300, 450);
+
+        Stage controlStage = new Stage();
+        controlStage.setScene(controlScene);
+
+        Button toControlSceneButton = new Button("Control");
+        toControlSceneButton.setLayoutX(610);
+        toControlSceneButton.setLayoutY(550);
+        toControlSceneButton.setOnAction(e -> controlStage.show());
+
+        // Remote Control Button
+        Button airConOnButton = new Button("Air Conditioner On");
+        Button airConOffButton = new Button("Air Conditioner Off");
+        Button fanOnButton = new Button("Fan On");
+        Button fanOffButton = new Button("Fan Off");
+        Button lightOnButton = new Button("Light On");
+        Button lightOffButton = new Button("Light Off");
+        Button speakerOnButton = new Button("Speaker On");
+        Button speakerOffButton = new Button("Speaker Off");
+        Button projectorOnButton = new Button("Projector On");
+        Button projctorOffButton = new Button("Projector Off");
+        Button enterClassButton = new Button("Enter Class");
+        Button leaveClassButton = new Button("Leave Class");
+
+        // Set up command for each button
+        airConOnButton.setOnAction(e -> remoteControl.onButtonWasPressed(0));
+        airConOffButton.setOnAction(e -> remoteControl.offButtonWasPressed(0));
+        fanOnButton.setOnAction(e -> remoteControl.onButtonWasPressed(1));
+        fanOffButton.setOnAction(e -> remoteControl.offButtonWasPressed(1));
+        lightOnButton.setOnAction(e -> remoteControl.onButtonWasPressed(2));
+        lightOffButton.setOnAction(e -> remoteControl.offButtonWasPressed(2));
+        speakerOnButton.setOnAction(e -> remoteControl.onButtonWasPressed(3));
+        speakerOffButton.setOnAction(e -> remoteControl.offButtonWasPressed(3));
+        projectorOnButton.setOnAction(e -> remoteControl.onButtonWasPressed(4));
+        projctorOffButton.setOnAction(e -> remoteControl.offButtonWasPressed(4));
+        enterClassButton.setOnAction(e -> remoteControl.onButtonWasPressed(5));
+        leaveClassButton.setOnAction(e -> remoteControl.offButtonWasPressed(5));
+
+        VBoxControlScene.getChildren().addAll(airConOnButton, airConOffButton, fanOnButton, fanOffButton,
+                lightOnButton, lightOffButton, speakerOnButton, speakerOffButton, projectorOnButton,
+                projctorOffButton, enterClassButton, leaveClassButton);
+
+        objPane.getChildren().addAll(toControlSceneButton);
     }
 
-    public LectureDesk getLectureDesk() {
-        return lectureDesk;
-    }
+    public void setUpRemoteControl() {
+        remoteControl = new RemoteControl();
+        Command airConOn = new AirConditionerOn(airCon);
+        Command airConOff = new AirConditionerOff(airCon);
+        Command fanOn = new FanOn(fan);
+        Command fanOff = new FanOff(fan);
+        Command lightOn = new LightOn(light);
+        Command lightOff = new LightOff(light);
+        Command speakerOn = new SpeakerOn(speaker);
+        Command speakerOff = new SpeakerOff(speaker);
+        Command projectorOn = new ProjectorOn(projectorBoard);
+        Command projectorOff = new ProjectorOff(projectorBoard);
 
-    public Light getLight() {
-        return light;
-    }
+        Command[] enterClass = { airConOn, fanOn, lightOn, speakerOn, projectorOn };
+        Command[] leaveClass = { airConOff, fanOff, lightOff, speakerOff, projectorOff };
 
-    public SmartBoard getSmartBoard() {
-        return smartBoard;
-    }
+        MacroCommand enterClassMacro = new MacroCommand(enterClass);
+        MacroCommand leaveClassMacro = new MacroCommand(leaveClass);
 
-    public Balloon getBalloon() {
-        return balloon;
-    }
-
-    public DiscoBall getDiscoBall() {
-        return discoBall;
-    }
-
-    public BeverageDispenser getBeverageDispenser() {
-        return beverageDispenser;
-    }
-
-    public FoodTable getFoodTable() {
-        return foodTable;
-    }
-
-    public DiscussionTable getDiscussionTable() {
-        return discussionTable;
-    }
-
-    public Whiteboard getWhiteboard() {
-        return whiteboard;
-    }
-
-    public Fan getFan() {
-        return fan;
-    }
-
-    public AirConditioner getAirConditioner() {
-        return airCon;
-    }
-
-    public ProjectorBoard getProjectorBoard() {
-        return projectorBoard;
+        remoteControl.setCommands(0, airConOn, airConOff);
+        remoteControl.setCommands(1, fanOn, fanOff);
+        remoteControl.setCommands(2, lightOn, lightOff);
+        remoteControl.setCommands(3, speakerOn, speakerOff);
+        remoteControl.setCommands(4, projectorOn, projectorOff);
+        remoteControl.setCommands(5, enterClassMacro, leaveClassMacro);
     }
 }
