@@ -23,7 +23,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class ClassroomFacade {
+public class MultipurposeClassroomFacade {
 
     ImageView backgroundImageView;
     Pane objPane;
@@ -47,7 +47,7 @@ public class ClassroomFacade {
     AirConditioner airCon;
     ProjectorBoard projectorBoard;
 
-    public ClassroomFacade(MultipurposeClassroom classroom, ClassObjFactory objFac, ImageView backgroundImageView, Pane objPane, ComboBox<String> modeComboBox) {
+    public MultipurposeClassroomFacade(MultipurposeClassroom classroom, ClassObjFactory objFac, ImageView backgroundImageView, Pane objPane, ComboBox<String> modeComboBox) {
         this.backgroundImageView = backgroundImageView;
         this.objPane = objPane;
         this.modeComboBox = modeComboBox;

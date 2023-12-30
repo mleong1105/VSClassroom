@@ -11,7 +11,7 @@ public class DiscoBall extends ClassObj{
 
     // Private constructor
     private DiscoBall(String description, String imgPath, String color){
-        super(imgPath, 150, 150, 300, 5, description);
+        super(imgPath, 150, 150, 450, 5, description);
         this.color = color;
     }
 

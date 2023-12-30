@@ -13,7 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 
-public class MultiClassroomController {
+public class MultipurposeClassroomController {
 
     @FXML
     private ImageView backgroundImageView;
@@ -32,12 +32,12 @@ public class MultiClassroomController {
         classroom = MultipurposeClassroom.getInstanceMultipurposeClassroom();
         objFactory = new DefaultObjFactory();
 
-        ClassroomFacade cf = new ClassroomFacade(classroom, objFactory, backgroundImageView, objPane, modeComboBox);
-        cf.initialClassSetting();
-        cf.setBackgroundImg();
-        cf.addModeComponents();
-        cf.setUpRemoteControl();
-        cf.addControl();
+        MultipurposeClassroomFacade mcf = new MultipurposeClassroomFacade(classroom, objFactory, backgroundImageView, objPane, modeComboBox);
+        mcf.initialClassSetting();
+        mcf.setBackgroundImg();
+        mcf.addModeComponents();
+        mcf.setUpRemoteControl();
+        mcf.addControl();
 
         // Use ChangeListener to detect changes in the combo box value
         // modeComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
