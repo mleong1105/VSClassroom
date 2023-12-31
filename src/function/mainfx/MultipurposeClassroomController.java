@@ -32,16 +32,20 @@ public class MultipurposeClassroomController {
         classroom = MultipurposeClassroom.getInstanceMultipurposeClassroom();
         objFactory = new DefaultObjFactory();
 
-        MultipurposeClassroomFacade mcf = new MultipurposeClassroomFacade(classroom, objFactory, backgroundImageView, objPane, modeComboBox);
+        MultipurposeClassroomFacade mcf = new MultipurposeClassroomFacade(classroom, objFactory, backgroundImageView,
+                objPane, modeComboBox);
         mcf.initialClassSetting();
         mcf.setBackgroundImg();
         mcf.addModeComponents();
         mcf.setUpRemoteControl();
         mcf.addControl();
+        mcf.setSpeakerBehaviour();
+        mcf.setProjectorBehaviour();
 
         // Use ChangeListener to detect changes in the combo box value
-        // modeComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-        //     cf.handleModeSelection();
+        // modeComboBox.valueProperty().addListener((observable, oldValue, newValue) ->
+        // {
+        // cf.handleModeSelection();
         // });
     }
 }

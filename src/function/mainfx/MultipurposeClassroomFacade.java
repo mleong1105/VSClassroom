@@ -14,6 +14,10 @@ import function.mainfx.command.RemoteControl;
 import function.mainfx.command.SpeakerOff;
 import function.mainfx.command.SpeakerOn;
 import function.mainfx.static_obj.*;
+import function.mainfx.strategy.HighOutputPower;
+import function.mainfx.strategy.LowOutputPower;
+import function.mainfx.strategy.NormalScreen;
+import function.mainfx.strategy.TouchScreen;
 import javafx.collections.FXCollections;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -29,6 +33,8 @@ public class MultipurposeClassroomFacade {
     Pane objPane;
     ComboBox<String> modeComboBox;
     RemoteControl remoteControl;
+    ComboBox<String> speakerMode;
+    ComboBox<String> projectorMode;
 
     MultipurposeClassroom classroom;
     Speaker speaker;
@@ -47,7 +53,8 @@ public class MultipurposeClassroomFacade {
     AirConditioner airCon;
     ProjectorBoard projectorBoard;
 
-    public MultipurposeClassroomFacade(MultipurposeClassroom classroom, ClassObjFactory objFac, ImageView backgroundImageView, Pane objPane, ComboBox<String> modeComboBox) {
+    public MultipurposeClassroomFacade(MultipurposeClassroom classroom, ClassObjFactory objFac,
+            ImageView backgroundImageView, Pane objPane, ComboBox<String> modeComboBox) {
         this.backgroundImageView = backgroundImageView;
         this.objPane = objPane;
         this.modeComboBox = modeComboBox;
@@ -100,6 +107,7 @@ public class MultipurposeClassroomFacade {
     public void initialClassSetting() {
         classroom.clearObjectinList();
         classroom.addObjectinList(speaker);
+        speaker.playingSound();
         classroom.addObjectinList(noticeboard);
         classroom.addObjectinList(lectureDesk);
         classroom.addObjectinList(light);
@@ -132,6 +140,50 @@ public class MultipurposeClassroomFacade {
         backgroundImageView.setImage(classroom.getBackgroundImageView().getImage());
         addModeComponents();
         addControl();
+        setSpeakerBehaviour();
+        setProjectorBehaviour();
+    }
+
+    public void setSpeakerBehaviour() {
+        speakerMode = new ComboBox<>(FXCollections.observableArrayList("Low Output Power", "High Output Power"));
+        speakerMode.setLayoutX(440);
+        speakerMode.setLayoutY(550);
+        speakerMode.setPromptText("Low Output Power");
+        speakerMode.setOnAction(e -> setSpeakerBehaviourChangeListener());
+
+        objPane.getChildren().addAll(speakerMode);
+    }
+
+    public void setSpeakerBehaviourChangeListener() {
+        String mode = speakerMode.getValue();
+
+        if (mode.equalsIgnoreCase("High Output Power")) {
+            speaker.setSpeakerBehaviour(new HighOutputPower());
+            speaker.playingSound();
+        } else if (mode.equalsIgnoreCase("Low Output Power")) {
+            speaker.setSpeakerBehaviour(new LowOutputPower());
+            speaker.playingSound();
+        }
+    }
+
+    public void setProjectorBehaviour() {
+        projectorMode = new ComboBox<>(FXCollections.observableArrayList("Normal Screen", "Touch Screen"));
+        projectorMode.setLayoutX(440);
+        projectorMode.setLayoutY(510);
+        projectorMode.setPromptText("Normal Screen");
+        projectorMode.setOnAction(e -> setProjectorBehaviourChangeListener());
+
+        objPane.getChildren().addAll(projectorMode);
+    }
+
+    public void setProjectorBehaviourChangeListener() {
+        String mode = projectorMode.getValue();
+
+        if (mode.equalsIgnoreCase("Touch Screen")) {
+            projectorBoard.setProjectorBehaviour(new TouchScreen());
+        } else if (mode.equalsIgnoreCase("Normal Screen")) {
+            projectorBoard.setProjectorBehaviour(new NormalScreen());
+        }
     }
 
     public void addControl() {
