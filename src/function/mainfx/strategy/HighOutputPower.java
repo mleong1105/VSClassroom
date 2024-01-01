@@ -1,20 +1,16 @@
 package function.mainfx.strategy;
 
-import function.mainfx.MultipurposeClassroom;
-import javafx.scene.control.Slider;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class HighOutputPower implements SpeakerBehaviour {
 
     @Override
     public void playingSound() {
-        MultipurposeClassroom classroom = MultipurposeClassroom.getInstanceMultipurposeClassroom();
-        Slider volumeSlider = new Slider(0, 50, 10);
-        volumeSlider.setShowTickLabels(true);
-        volumeSlider.setShowTickMarks(true);
-        volumeSlider.setMajorTickUnit(1);
-        volumeSlider.setTranslateX(60);
-        volumeSlider.setTranslateY(100);
-        classroom.getObjPane().getChildren().addAll(volumeSlider);
+        Alert pAlert = new Alert(AlertType.INFORMATION);
+        pAlert.setHeaderText("Current Speaker Mode: High Output Power");
+        pAlert.setContentText("Maximum sound for this speaker can be until 100");
+        pAlert.showAndWait();
     }
 
 }

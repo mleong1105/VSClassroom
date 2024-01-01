@@ -107,7 +107,6 @@ public class MultipurposeClassroomFacade {
     public void initialClassSetting() {
         classroom.clearObjectinList();
         classroom.addObjectinList(speaker);
-        speaker.playingSound();
         classroom.addObjectinList(noticeboard);
         classroom.addObjectinList(lectureDesk);
         classroom.addObjectinList(light);
