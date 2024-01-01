@@ -106,8 +106,8 @@ public class DefaultObjFactory implements ClassObjFactory {
 
     public AirConditioner createAirCon() {
         return AirConditioner.getInstanceAirCon("AirCon", 
-        "/function/mainfx/resources/image/airCon_off.png", 
-        "/function/mainfx/resources/image/airCon_on.png");
+        "/function/mainfx/resources/image/airCon_on.png", 
+        "/function/mainfx/resources/image/airCon_off.png");
     }
 
     public ProjectorBoard createProjectorBoard() { 
