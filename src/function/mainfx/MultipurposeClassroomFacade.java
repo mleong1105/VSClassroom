@@ -151,6 +151,9 @@ public class MultipurposeClassroomFacade {
         speakerMode = new ComboBox<>(FXCollections.observableArrayList("Low Output Power", "High Output Power"));
         speakerMode.setLayoutX(440);
         speakerMode.setLayoutY(550);
+        if (currentClassMode != prevClassMode) {
+            speaker.setSpeakerBehaviour(new LowOutputPower());
+        }
         speakerMode.setPromptText("Low Output Power");
         speakerMode.setOnAction(e -> setSpeakerBehaviourChangeListener());
 
