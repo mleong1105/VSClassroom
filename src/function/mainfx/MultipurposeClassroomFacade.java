@@ -165,10 +165,8 @@ public class MultipurposeClassroomFacade {
 
         if (mode.equalsIgnoreCase("High Output Power")) {
             speaker.setSpeakerBehaviour(new HighOutputPower());
-            speaker.playingSound();
         } else if (mode.equalsIgnoreCase("Low Output Power")) {
             speaker.setSpeakerBehaviour(new LowOutputPower());
-            speaker.playingSound();
         }
     }
 

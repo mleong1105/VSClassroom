@@ -14,7 +14,7 @@ public class Speaker extends ClassObj {
 
     // Private constructor
     private Speaker(String description, String activeImgPath, String disactiveImgPath, String musicName) {
-        super(activeImgPath, 80, 80, 10, 10, description);
+        super(disactiveImgPath, 80, 80, 10, 10, description);
         this.activeImgPath = activeImgPath;
         this.disactiveImgPath = disactiveImgPath;
         this.musicName = musicName;
