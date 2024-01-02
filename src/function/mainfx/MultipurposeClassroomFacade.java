@@ -35,6 +35,8 @@ public class MultipurposeClassroomFacade {
     RemoteControl remoteControl;
     ComboBox<String> speakerMode;
     ComboBox<String> projectorMode;
+    String currentClassMode = "";
+    String prevClassMode = "";
 
     MultipurposeClassroom classroom;
     Speaker speaker;
@@ -131,6 +133,8 @@ public class MultipurposeClassroomFacade {
 
     public void addModeCBChangeListener() {
         String selectedMode = modeComboBox.getValue();
+        prevClassMode = currentClassMode;
+        currentClassMode = selectedMode;
         System.out.println("Selected Mode: " + selectedMode);
         setMode(selectedMode);
 
@@ -169,6 +173,9 @@ public class MultipurposeClassroomFacade {
         projectorMode = new ComboBox<>(FXCollections.observableArrayList("Normal Screen", "Touch Screen"));
         projectorMode.setLayoutX(440);
         projectorMode.setLayoutY(510);
+        if (currentClassMode != prevClassMode) {
+            projectorBoard.setProjectorBehaviour(new NormalScreen());
+        }
         projectorMode.setPromptText("Normal Screen");
         projectorMode.setOnAction(e -> setProjectorBehaviourChangeListener());
 
