@@ -13,6 +13,7 @@ import function.mainfx.command.ProjectorOn;
 import function.mainfx.command.RemoteControl;
 import function.mainfx.command.SpeakerOff;
 import function.mainfx.command.SpeakerOn;
+import function.mainfx.factory.DefaultObjFactory;
 import function.mainfx.static_obj.*;
 import function.mainfx.strategy.HighOutputPower;
 import function.mainfx.strategy.LowOutputPower;
@@ -39,6 +40,7 @@ public class MultipurposeClassroomFacade {
     private String prevClassMode = "";
 
     private MultipurposeClassroom classroom;
+    private ClassObjFactory objFac;
     private Speaker speaker;
     private Noticeboard noticeboard;
     private LearningDesk learningDesk;
@@ -54,8 +56,9 @@ public class MultipurposeClassroomFacade {
     private AirConditioner airCon;
     private ProjectorBoard projectorBoard;
 
-    public MultipurposeClassroomFacade(MultipurposeClassroom classroom, ClassObjFactory objFac,
+    public MultipurposeClassroomFacade(MultipurposeClassroom classroom,
             ImageView backgroundImageView, Pane objPane, ComboBox<String> modeComboBox) {
+        this.objFac = new DefaultObjFactory();        
         this.backgroundImageView = backgroundImageView;
         this.objPane = objPane;
         this.modeComboBox = modeComboBox;

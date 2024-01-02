@@ -8,7 +8,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import function.mainfx.command.*;
-import function.mainfx.factory.DefaultObjFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -25,14 +24,11 @@ public class MultipurposeClassroomController {
     private ComboBox<String> modeComboBox;
 
     private MultipurposeClassroom classroom;
-    private ClassObjFactory objFactory;
 
     @FXML
     public void initialize() {
         classroom = MultipurposeClassroom.getInstanceMultipurposeClassroom();
-        objFactory = new DefaultObjFactory();
-
-        MultipurposeClassroomFacade mcf = new MultipurposeClassroomFacade(classroom, objFactory, backgroundImageView,
+        MultipurposeClassroomFacade mcf = new MultipurposeClassroomFacade(classroom, backgroundImageView,
                 objPane, modeComboBox);
         mcf.initialClassSetting();
         mcf.setBackgroundImg();
@@ -41,11 +37,5 @@ public class MultipurposeClassroomController {
         mcf.addControl();
         mcf.setSpeakerBehaviour();
         mcf.setProjectorBehaviour();
-
-        // Use ChangeListener to detect changes in the combo box value
-        // modeComboBox.valueProperty().addListener((observable, oldValue, newValue) ->
-        // {
-        // cf.handleModeSelection();
-        // });
     }
 }
