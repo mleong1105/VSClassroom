@@ -8,16 +8,16 @@ public class Whiteboard extends ClassObj{
     private volatile static Whiteboard uniqueInstanceWhiteboard;    
 
     // Private constructor
-    private Whiteboard(String description, String imgPath) {
-        super(imgPath, 250, 250, 400, 200, description);
+    private Whiteboard(String imgPath) {
+        super(imgPath, 250, 250, 400, 200);
     }
 
     // Public method to get the singleton instance
-    public static Whiteboard getInstanceWhiteboard(String description, String imgPath) {
+    public static Whiteboard getInstanceWhiteboard(String imgPath) {
         if (uniqueInstanceWhiteboard == null) {
             synchronized (Whiteboard.class) {
                 if (uniqueInstanceWhiteboard == null) {
-                    uniqueInstanceWhiteboard = new Whiteboard(description, imgPath);
+                    uniqueInstanceWhiteboard = new Whiteboard(imgPath);
                 }
             }
         }

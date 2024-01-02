@@ -10,33 +10,20 @@ public class LectureDesk extends ClassObj {
     private volatile static LectureDesk uniqueInstanceLectureDesk;    
 
     // Private constructor
-    private LectureDesk(String description, String imgPath) {
-        super(imgPath, 300, 200, 10, 260, description);
+    private LectureDesk(String imgPath) {
+        super(imgPath, 300, 200, 10, 260);
         this.exist = true;
     }
 
     // Public method to get the singleton instance
-    public static LectureDesk getInstanceLectureDesk(String description, String imgPath) {
+    public static LectureDesk getInstanceLectureDesk(String imgPath) {
         if (uniqueInstanceLectureDesk == null) {
             synchronized (LectureDesk.class) {
                 if (uniqueInstanceLectureDesk == null) {
-                    uniqueInstanceLectureDesk = new LectureDesk(description, imgPath);
+                    uniqueInstanceLectureDesk = new LectureDesk(imgPath);
                 }
             }
         }
         return uniqueInstanceLectureDesk;
     }
-
-
-    public void addLectureDesk(){
-        if(exist==false){
-            this.exist = true;
-        }
-    }
-
-    public void removeLectureDesk(){
-        this.exist = false;
-    }
-
-
 }

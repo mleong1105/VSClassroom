@@ -11,29 +11,29 @@ public class BeverageDispenser extends ClassObj {
     private String[] imgPathList;
 
     // Singleton instance
-    private volatile static BeverageDispenser uniqueInstanceBeverageDispenser;    
+    private volatile static BeverageDispenser uniqueInstanceBeverageDispenser;
 
     // Private constructor
-    private BeverageDispenser(String description, String[] imgPathList, int beverageOption, int capacity) {
-        super(imgPathList[0], 70, 80, 400, 350, description);
+    private BeverageDispenser(String[] imgPathList, int beverageOption, int capacity) {
+        super(imgPathList[0], 70, 80, 400, 350);
         this.beverageOption = beverageOption;
         this.imgPathList = imgPathList;
         this.capacity = capacity;
     }
 
     // Public method to get the singleton instance
-    public static BeverageDispenser getInstanceBeverageDispenser(String description, String[] imgPathList, int beverageOption, int capacity) {
+    public static BeverageDispenser getInstanceBeverageDispenser(String[] imgPathList, int beverageOption, int capacity) {
         if (uniqueInstanceBeverageDispenser == null) {
             synchronized (BeverageDispenser.class) {
                 if (uniqueInstanceBeverageDispenser == null) {
-                    uniqueInstanceBeverageDispenser = new BeverageDispenser(description, imgPathList, beverageOption, capacity);
+                    uniqueInstanceBeverageDispenser = new BeverageDispenser(imgPathList, beverageOption, capacity);
                 }
             }
         }
         return uniqueInstanceBeverageDispenser;
     }
 
-    public String decideImagePath(String[] imgPathList, int beverageOption){
+    public String decideImagePath(String[] imgPathList, int beverageOption) {
         if (beverageOption >= 0 && beverageOption < imgPathList.length) {
             return imgPathList[beverageOption];
         } else {

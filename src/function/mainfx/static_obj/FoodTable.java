@@ -9,27 +9,19 @@ public class FoodTable extends ClassObj{
     private volatile static FoodTable uniqueInstanceFoodTable;    
 
     // Private constructor
-    private FoodTable(String description, String imgPath) {
-        super(imgPath, 300, 200, 350, 350, description);
+    private FoodTable(String imgPath) {
+        super(imgPath, 300, 200, 350, 350);
     }
 
     // Public method to get the singleton instance
-    public static FoodTable getInstanceFoodTable(String description, String imgPath) {
+    public static FoodTable getInstanceFoodTable(String imgPath) {
         if (uniqueInstanceFoodTable == null) {
             synchronized (FoodTable.class) {
                 if (uniqueInstanceFoodTable == null) {
-                    uniqueInstanceFoodTable = new FoodTable(description, imgPath);
+                    uniqueInstanceFoodTable = new FoodTable(imgPath);
                 }
             }
         }
         return uniqueInstanceFoodTable;
     }
-
-    // public void addBeverageDispenser() {
-    //     Random rand = new Random();
-    //     int randNum = rand.nextInt(1, 7);
-    //     BeverageDispenser beverageDispenser = BeverageDispenser.getInstanceBeverageDispenser(randNum,100);
-    //     beverageDispenser.getObjectImageView().setX(350);
-    //     beverageDispenser.getObjectImageView().setY(5);
-    // }
 }

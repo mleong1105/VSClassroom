@@ -5,11 +5,9 @@ import javafx.scene.image.ImageView;
 
 public abstract class ClassObj {
     protected ImageView objectImageView;
-    protected String description;
     protected double fitWidth, fitHeight, layoutX, layoutY;
 
-    public ClassObj(String imagePath, double fitWidth, double fitHeight, double layoutX, double layoutY, String description) {
-        this.description = description;
+    public ClassObj(String imagePath, double fitWidth, double fitHeight, double layoutX, double layoutY) {
         this.fitWidth = fitWidth;
         this.fitHeight = fitHeight;
         this.layoutX = layoutX;
@@ -39,10 +37,6 @@ public abstract class ClassObj {
 
     public ImageView getObjectImageView() {
         return objectImageView;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     public void setClassObject(String imagePath, double fitWidth, double fitHeight, double layoutX, double layoutY){

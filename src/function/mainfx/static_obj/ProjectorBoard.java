@@ -11,19 +11,19 @@ public class ProjectorBoard extends ClassObj {
     private volatile static ProjectorBoard uniqueInstanceProjectorBoard;
 
     // Private constructor
-    private ProjectorBoard(String description, String onImgPath, String offImgPath) {
-        super(offImgPath, 380, 200, 210, 100, description);
+    private ProjectorBoard(String onImgPath, String offImgPath) {
+        super(offImgPath, 380, 200, 210, 100);
         this.onImgPath = onImgPath;
         this.offImgPath = offImgPath;
         this.projectorBehaviour = new NormalScreen();
     }
 
     // Public method to get the singleton instance
-    public static ProjectorBoard getInstanceProjectorBoard(String description, String onImgPath, String offImgPath) {
+    public static ProjectorBoard getInstanceProjectorBoard(String onImgPath, String offImgPath) {
         if (uniqueInstanceProjectorBoard == null) {
             synchronized (ProjectorBoard.class) {
                 if (uniqueInstanceProjectorBoard == null) {
-                    uniqueInstanceProjectorBoard = new ProjectorBoard(description, onImgPath, offImgPath);
+                    uniqueInstanceProjectorBoard = new ProjectorBoard(onImgPath, offImgPath);
                 }
             }
         }
@@ -38,8 +38,6 @@ public class ProjectorBoard extends ClassObj {
     public void off() {
         this.setClassObject(offImgPath, 380, 200, 210, 100);
         projectorBehaviour.clearCanvas();
-        // this.setClassObject("/function/mainfx/resources/image/blackboard.png", 400,
-        // 200, 200, 100);
     }
 
     public void setProjectorBehaviour(ProjectorBehaviour projectorBehaviour) {

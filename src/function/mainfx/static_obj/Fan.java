@@ -7,18 +7,18 @@ public class Fan extends ClassObj {
     // Singleton instance
     private volatile static Fan uniqueInstanceFan;
 
-    private Fan(String description, String onImgPath, String offImgPath) {
-        super(offImgPath, 150, 150, 200, -25, description);
+    private Fan(String onImgPath, String offImgPath) {
+        super(offImgPath, 150, 150, 200, -25);
         this.onImgPath = onImgPath;
         this.offImgPath = offImgPath;
     }
 
     // Public method to get the singleton instance
-    public static Fan getInstanceFan(String description, String onImgPath, String offImgPath) {
+    public static Fan getInstanceFan(String onImgPath, String offImgPath) {
         if (uniqueInstanceFan == null) {
             synchronized (Fan.class) {
                 if (uniqueInstanceFan == null) {
-                    uniqueInstanceFan = new Fan(description, onImgPath, offImgPath);
+                    uniqueInstanceFan = new Fan(onImgPath, offImgPath);
                 }
             }
         }

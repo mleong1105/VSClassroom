@@ -9,17 +9,17 @@ public class Balloon extends ClassObj {
     private volatile static Balloon uniqueInstanceBalloon;    
 
     // Private constructor
-    private Balloon(String description, String imgPath) {
-        super(imgPath, 100, 200, 100, 240, description);
+    private Balloon(String imgPath) {
+        super(imgPath, 100, 200, 100, 240);
         this.imgPath = imgPath;
     }
 
     // Public method to get the singleton instance
-    public static Balloon getInstanceBalloon(String description, String imgPath) {
+    public static Balloon getInstanceBalloon(String imgPath) {
         if (uniqueInstanceBalloon == null) {
             synchronized (Balloon.class) {
                 if (uniqueInstanceBalloon == null) {
-                    uniqueInstanceBalloon = new Balloon(description, imgPath);
+                    uniqueInstanceBalloon = new Balloon(imgPath);
                 }
             }
         }

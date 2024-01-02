@@ -29,31 +29,30 @@ import javafx.stage.Stage;
 
 public class MultipurposeClassroomFacade {
 
-    ImageView backgroundImageView;
-    Pane objPane;
-    ComboBox<String> modeComboBox;
-    RemoteControl remoteControl;
-    ComboBox<String> speakerMode;
-    ComboBox<String> projectorMode;
-    String currentClassMode = "";
-    String prevClassMode = "";
+    private ImageView backgroundImageView;
+    private Pane objPane;
+    private ComboBox<String> modeComboBox;
+    private RemoteControl remoteControl;
+    private ComboBox<String> speakerMode;
+    private ComboBox<String> projectorMode;
+    private String currentClassMode = "";
+    private String prevClassMode = "";
 
-    MultipurposeClassroom classroom;
-    Speaker speaker;
-    Noticeboard noticeboard;
-    LearningDesk learningDesk;
-    LectureDesk lectureDesk;
-    Light light;
-    SmartBoard smartBoard;
-    Balloon balloon;
-    DiscoBall discoBall;
-    BeverageDispenser beverageDispenser;
-    FoodTable foodTable;
-    DiscussionTable discussionTable;
-    Whiteboard whiteboard;
-    Fan fan;
-    AirConditioner airCon;
-    ProjectorBoard projectorBoard;
+    private MultipurposeClassroom classroom;
+    private Speaker speaker;
+    private Noticeboard noticeboard;
+    private LearningDesk learningDesk;
+    private LectureDesk lectureDesk;
+    private Light light;
+    private Balloon balloon;
+    private DiscoBall discoBall;
+    private BeverageDispenser beverageDispenser;
+    private FoodTable foodTable;
+    private DiscussionTable discussionTable;
+    private Whiteboard whiteboard;
+    private Fan fan;
+    private AirConditioner airCon;
+    private ProjectorBoard projectorBoard;
 
     public MultipurposeClassroomFacade(MultipurposeClassroom classroom, ClassObjFactory objFac,
             ImageView backgroundImageView, Pane objPane, ComboBox<String> modeComboBox) {
@@ -67,7 +66,6 @@ public class MultipurposeClassroomFacade {
         this.learningDesk = objFac.createLearningDesk();
         this.lectureDesk = objFac.createLectureDesk();
         this.light = objFac.createLight();
-        this.smartBoard = objFac.createSmartBoard();
         this.balloon = objFac.createBalloon();
         this.discoBall = objFac.createDiscoBall();
         this.beverageDispenser = objFac.createBeverageDispenser();

@@ -7,18 +7,18 @@ public class AirConditioner extends ClassObj {
     // Singleton instance
     private volatile static AirConditioner uniqueInstanceAirConditioner;
 
-    private AirConditioner(String description, String onImgPath, String offImgPath) {
-        super(offImgPath, 180, 180, 620, -40, description);
+    private AirConditioner(String onImgPath, String offImgPath) {
+        super(offImgPath, 180, 180, 620, -40);
         this.onImgPath = onImgPath;
         this.offImgPath = offImgPath;
     }
 
     // Public method to get the singleton instance
-    public static AirConditioner getInstanceAirCon(String description, String onImgPath, String offImgPath) {
+    public static AirConditioner getInstanceAirCon(String onImgPath, String offImgPath) {
         if (uniqueInstanceAirConditioner == null) {
             synchronized (AirConditioner.class) {
                 if (uniqueInstanceAirConditioner == null) {
-                    uniqueInstanceAirConditioner = new AirConditioner(description, onImgPath, offImgPath);
+                    uniqueInstanceAirConditioner = new AirConditioner(onImgPath, offImgPath);
                 }
             }
         }
