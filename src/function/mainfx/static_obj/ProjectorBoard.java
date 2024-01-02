@@ -37,6 +37,7 @@ public class ProjectorBoard extends ClassObj {
 
     public void off() {
         this.setClassObject(offImgPath, 380, 200, 210, 100);
+        projectorBehaviour.clearCanvas();
         // this.setClassObject("/function/mainfx/resources/image/blackboard.png", 400,
         // 200, 200, 100);
     }

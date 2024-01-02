@@ -8,4 +8,10 @@ public class NormalScreen implements ProjectorBehaviour {
         throw new UnsupportedOperationException("Unimplemented method 'project'");
     }
 
+    @Override
+    public void clearCanvas() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'clearCanvas'");
+    }
+
 }

@@ -8,11 +8,14 @@ import javafx.scene.paint.Color;
 
 public class TouchScreen implements ProjectorBehaviour {
 
+    Canvas canvas;
+    GraphicsContext gc;
+
     @Override
     public void project() {
         MultipurposeClassroom classroom = MultipurposeClassroom.getInstanceMultipurposeClassroom();
-        Canvas canvas = new Canvas(340, 200);
-        GraphicsContext gc = canvas.getGraphicsContext2D();
+        canvas = new Canvas(340, 200);
+        gc = canvas.getGraphicsContext2D();
         gc.setLineWidth(2.0);
         gc.setStroke(Color.BLACK);
 
@@ -33,6 +36,14 @@ public class TouchScreen implements ProjectorBehaviour {
         canvas.setTranslateX(230);
         canvas.setTranslateY(80);
         classroom.getObjPane().getChildren().add(canvas);
+        canvas.setDisable(false);
+    }
+
+    @Override
+    public void clearCanvas() {
+        // Clear the entire canvas
+        gc.clearRect(0, 0, 340, 200);
+        canvas.setDisable(true);
     }
 
 }
