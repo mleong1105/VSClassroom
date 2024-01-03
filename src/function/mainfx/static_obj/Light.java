@@ -4,7 +4,7 @@ import function.mainfx.ClassObj;
 
 public class Light extends ClassObj {    
 
-    String onImgPath, offImgPath;
+    private String onImgPath, offImgPath;
     // Singleton instance
     private volatile static Light uniqueInstanceLight;    
 

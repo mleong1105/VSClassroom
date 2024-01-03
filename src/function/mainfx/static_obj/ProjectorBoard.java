@@ -5,7 +5,7 @@ import function.mainfx.strategy.NormalScreen;
 import function.mainfx.strategy.ProjectorBehaviour;
 
 public class ProjectorBoard extends ClassObj {
-    String onImgPath, offImgPath;
+    private String onImgPath, offImgPath;
     ProjectorBehaviour projectorBehaviour;
     // Singleton instance
     private volatile static ProjectorBoard uniqueInstanceProjectorBoard;
