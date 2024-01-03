@@ -63,13 +63,6 @@ public class MultipurposeClassroom {
         return backgroundImageView;
     }
 
-    public ImageView getBackgroundDarkImageView() {
-        Image backgroundImage = new Image(
-                getClass().getResourceAsStream("/function/mainfx/resources/image/background-dark.png"));
-        ImageView backgroundDarkImageView = new ImageView(backgroundImage);
-        return backgroundDarkImageView;
-    }
-
     public Pane getObjPane() {
         return objPane;
     }

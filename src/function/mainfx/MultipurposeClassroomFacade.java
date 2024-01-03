@@ -58,7 +58,7 @@ public class MultipurposeClassroomFacade {
 
     public MultipurposeClassroomFacade(MultipurposeClassroom classroom,
             ImageView backgroundImageView, Pane objPane, ComboBox<String> modeComboBox) {
-        this.objFac = new DefaultObjFactory();        
+        this.objFac = new DefaultObjFactory();
         this.backgroundImageView = backgroundImageView;
         this.objPane = objPane;
         this.modeComboBox = modeComboBox;
@@ -126,7 +126,10 @@ public class MultipurposeClassroomFacade {
         modeComboBox = new ComboBox<>(FXCollections.observableArrayList("Lesson", "Discussion", "Party"));
         modeComboBox.setLayoutX(680);
         modeComboBox.setLayoutY(550);
-        modeComboBox.setPromptText("Select Mode");
+        if (currentClassMode == null || currentClassMode.isEmpty() || currentClassMode.equals("")) {
+            currentClassMode = "Select Mode";
+        }
+        modeComboBox.setValue(currentClassMode);
         modeComboBox.setOnAction(e -> addModeCBChangeListener());
 
         objPane.getChildren().addAll(classroom.getObjPane(), modeComboBox);
@@ -254,8 +257,8 @@ public class MultipurposeClassroomFacade {
         Command projectorOn = new ProjectorOn(projectorBoard);
         Command projectorOff = new ProjectorOff(projectorBoard);
 
-        Command[] enterClass = { airConOn, fanOn, lightOn, speakerOn, projectorOn };
-        Command[] leaveClass = { airConOff, fanOff, lightOff, speakerOff, projectorOff };
+        Command[] enterClass = {airConOn, fanOn, lightOn, speakerOn, projectorOn};
+        Command[] leaveClass = {airConOff, fanOff, lightOff, speakerOff, projectorOff};
 
         MacroCommand enterClassMacro = new MacroCommand(enterClass);
         MacroCommand leaveClassMacro = new MacroCommand(leaveClass);
