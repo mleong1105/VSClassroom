@@ -12,7 +12,6 @@ public interface ClassObjFactory {
 
     DiscussionTable createDiscussionTable();
     Whiteboard createWhiteboard();
-    SmartBoard createSmartBoard();
     Balloon createBalloon();
     DiscoBall createDiscoBall();
     BeverageDispenser createBeverageDispenser();
