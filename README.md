@@ -1,5 +1,8 @@
 We are using VSCode as our IDE for this application
 
+Video Reference:
+<br>Link: https://youtu.be/H67COH9F718?feature=shared
+
 For the setup of application, you will need:
 1) Java SDK (jdk-21)
 2) JavaFx SDK
