@@ -14,7 +14,7 @@ public class TouchScreen implements ProjectorBehaviour {
     @Override
     public void project() {
         MultipurposeClassroom classroom = MultipurposeClassroom.getInstanceMultipurposeClassroom();
-        canvas = new Canvas(340, 200);
+        canvas = new Canvas(340, 160);
         gc = canvas.getGraphicsContext2D();
         gc.setLineWidth(2.0);
         gc.setStroke(Color.BLACK);
@@ -34,7 +34,7 @@ public class TouchScreen implements ProjectorBehaviour {
             }
         });
         canvas.setTranslateX(230);
-        canvas.setTranslateY(80);
+        canvas.setTranslateY(120);
         classroom.getObjPane().getChildren().add(canvas);
         canvas.setDisable(false);
     }
